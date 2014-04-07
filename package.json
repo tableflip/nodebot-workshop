@@ -1,0 +1,30 @@
+{
+  "name": "johnny-five-is-alive",
+  "version": "0.0.0",
+  "description": "A nodeschool workshop on how to get your ardunio alive with johnny-five",
+  "main": "index.js",
+  "scripts": {
+    "start": "./johnny-five-is-alive.js",
+    "test": "say sorry"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olizilla/johnny-five-is-alive"
+  },
+  "keywords": [
+    "nodeschool",
+    "johnny-five",
+    "arduino",
+    "workshop"
+  ],
+  "author": "olizilla <oli@zilla.org.uk>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/olizilla/johnny-five-is-alive/issues"
+  },
+  "dependencies": {
+    "workshopper": "~1.0.0-alpha07",
+    "workshopper-exercise": "~0.2.3",
+    "workshopper-wrappedexec": "~0.1.1"
+  }
+}
