@@ -6,8 +6,10 @@ var sinon = require('sinon'),
 IO = function(path, callback) {
   IOBoard.call(this);
 
+  // j5 will read this property
   this.pins = [];
 
+  // set digital pin capabilities
   for(var i = 0; i < 14; i++) {
     var supportedModes = [IOBoard.CONSTANTS.MODES.OUTPUT, IOBoard.CONSTANTS.MODES.INPUT];
 
@@ -23,8 +25,10 @@ IO = function(path, callback) {
     });
   }
 
+  // j5 will read this property
   this.analogPins = [];
 
+  // set analog pin capabilities
   for(var i = 0; i < 6; i++) {
     this.analogPins.push({
       mode: IOBoard.CONSTANTS.MODES.ANALOG,
@@ -38,9 +42,8 @@ IO = function(path, callback) {
   this.HIGH = IOBoard.CONSTANTS.HIGH;
   this.LOW = IOBoard.CONSTANTS.LOW;
 
-  setTimeout(function() {
-    callback();
-  }.bind(this), 1000);
+  // done setup, pretend we've connected to firmata
+  setTimeout(callback, 1000);
 }
 util.inherits(IO, IOBoard);
 
@@ -52,12 +55,14 @@ module.exports = {
 
     var singleton = new IO(port, callback);
 
+    // spy on every IO method
     for(var key in singleton) {
       if(singleton[key] instanceof Function) {
         singleton[key] = sinon.spy(singleton[key]);
       }
     }
 
+    // we're going to interrogate the singleton during solution verification
     module.exports.singleton = singleton;
 
     return singleton;

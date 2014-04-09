@@ -1,15 +1,13 @@
 var proxyquire =  require("proxyquire"),
-  should = require('chai').should(),
-  sinon = require('sinon');
+  should = require('chai').should();
 
+// these will be required() in place of the real modules
 var stubs = {
   "firmata": require('../../stubs/io-stub'),
   "serialport": require('../../stubs/serialport-stub')
 };
 stubs['serialport']['@global'] = true;
 stubs['firmata']['@global'] = true;
-
-//stubs['johnny-five']['@noCallThru'] = true;
 
 var exercise      = require('workshopper-exercise')(),
   filecheck       = require('workshopper-exercise/filecheck'),
@@ -27,11 +25,9 @@ exercise = execute(exercise)
 // mess with the global environment and inspect execution
 exercise = wrappedexec(exercise)
 
-// a module we want run just prior to the submission in the
-// child process
-exercise.wrapModule(require.resolve('../wrap-johnny-five'))
-
+// this actually runs the solution
 exercise.addProcessor(function (mode, callback) {
+  // includes the solution to run it
   proxyquire(path.join(process.cwd(), exercise.args[0]), stubs);
 
   // need a better way of detecting when we are done..
@@ -46,6 +42,7 @@ exercise.addVerifyProcessor(function (callback) {
     var io = stubs['firmata'].singleton;
 
     if(!io) {
+      // yikes, board was never created
       return callback(null, false);
     }
 
