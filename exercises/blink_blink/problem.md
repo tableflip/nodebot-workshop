@@ -1,1 +1,1 @@
-Write a program that blinks an LED attached to pin once every second.
+Write a program that blinks an LED attached to pin 13 once every second.

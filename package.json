@@ -7,6 +7,9 @@
     "start": "./johnny-five-is-alive.js",
     "test": "say sorry"
   },
+  "bin": {
+    "j5-tut": "./johnny-five-is-alive.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/olizilla/johnny-five-is-alive"
@@ -25,6 +28,10 @@
   "dependencies": {
     "workshopper": "~1.0.0-alpha07",
     "workshopper-exercise": "~0.2.3",
-    "workshopper-wrappedexec": "~0.1.1"
+    "workshopper-wrappedexec": "~0.1.1",
+    "proxyquire": "achingbrain/proxyquire",
+    "sinon": "^1.9",
+    "chai": "^1.9",
+    "ioboard": "^2.0"
   }
 }
