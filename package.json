@@ -32,6 +32,6 @@
     "proxyquire": "achingbrain/proxyquire",
     "sinon": "^1.9",
     "chai": "^1.9",
-    "ioboard": "^2.0"
+    "ioboard": "^3.0"
   }
 }

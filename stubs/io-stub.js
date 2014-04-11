@@ -3,47 +3,59 @@ var sinon = require('sinon'),
   util = require('util'),
   IOBoard = require('ioboard');
 
+// an IO plugin for Johnny-Five that looks like an Arduino UNO
+// https://github.com/rwaldron/johnny-five/wiki/IO-Plugins
 IO = function(path, callback) {
-  IOBoard.call(this);
+  IOBoard.call(this, {quiet: true});
 
-  // j5 will read this property
-  this.pins = [];
+  // pretend we've connected to firmata
+  setTimeout(function() {
+    this.emit("connected");
 
-  // set digital pin capabilities
-  for(var i = 0; i < 14; i++) {
-    var supportedModes = [IOBoard.CONSTANTS.MODES.OUTPUT, IOBoard.CONSTANTS.MODES.INPUT];
+    // would now query the board's capabilities
+    setTimeout(function() {
 
-    if([3, 5, 6, 9, 10, 11].indexOf(i) != -1) {
-      supportedModes.push(IOBoard.CONSTANTS.MODES.PWM);
-    }
+      // set digital pin capabilities
+      for(var i = 0; i < 20; i++) {
+        var supportedModes = [];
+        var mode = this.MODES.OUTPUT;
+        var analogChannel = 127;
 
-    this.pins.push({
-      mode: IOBoard.CONSTANTS.MODES.OUTPUT,
-      supportedModes: supportedModes,
-      value : 0,
-      report: 1
-    });
-  }
+        // set analog pin capabilities
+        if(i < 13) {
+          // standard modes supported by digital pins
+          if(i > 1) {
+            supportedModes.push(this.MODES.OUTPUT);
+            supportedModes.push(this.MODES.INPUT);
+            supportedModes.push(this.MODES.SERVO);
+          }
 
-  // j5 will read this property
-  this.analogPins = [];
+          // these pins also support pwm mode
+          if([3, 5, 6, 9, 10, 11].indexOf(i) != -1) {
+            supportedModes.push(this.MODES.PWM);
+          }
+        } else {
+          // pins > 13 are analog
+          mode = this.MODES.ANALOG;
+          analogChannel = i - 14;
+          supportedModes = [this.MODES.OUTPUT, this.MODES.INPUT, this.MODES.ANALOG];
+        }
 
-  // set analog pin capabilities
-  for(var i = 0; i < 6; i++) {
-    this.analogPins.push({
-      mode: IOBoard.CONSTANTS.MODES.ANALOG,
-      supportedModes: [IOBoard.CONSTANTS.MODES.ANALOG],
-      value : 0,
-      report: 1
-    });
-  }
+        // populate pins array
+        this._pins.push({
+          supportedModes: supportedModes,
+          mode: mode,
+          value : 0,
+          report: 0,
+          analogChannel: analogChannel
+        });
+      }
 
-  this.MODES = IOBoard.CONSTANTS.MODES;
-  this.HIGH = IOBoard.CONSTANTS.HIGH;
-  this.LOW = IOBoard.CONSTANTS.LOW;
+      this.emit("ready");
 
-  // done setup, pretend we've connected to firmata
-  setTimeout(callback, 1000);
+      callback();
+    }.bind(this), 200);
+  }.bind(this), 200);
 }
 util.inherits(IO, IOBoard);
 
