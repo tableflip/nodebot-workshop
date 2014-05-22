@@ -26,12 +26,12 @@
     "url": "https://github.com/olizilla/johnny-five-is-alive/issues"
   },
   "dependencies": {
+    "chai": "^1.9",
+    "ioboard": "^3.0",
+    "proxyquire": "^1.0.0",
+    "sinon": "^1.9",
     "workshopper": "~1.0.0-alpha07",
     "workshopper-exercise": "~0.2.3",
-    "workshopper-wrappedexec": "~0.1.1",
-    "proxyquire": "achingbrain/proxyquire",
-    "sinon": "^1.9",
-    "chai": "^1.9",
-    "ioboard": "^3.0"
+    "workshopper-wrappedexec": "~0.1.1"
   }
 }
