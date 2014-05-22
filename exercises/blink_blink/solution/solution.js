@@ -1,4 +1,4 @@
-var five = require('johnny-five.js'),
+var five = require('johnny-five'),
   board = new five.Board();
 
 board.on('ready', function() {

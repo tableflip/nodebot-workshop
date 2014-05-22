@@ -1,5 +1,5 @@
 var proxyquire = require("proxyquire");
-var five = require("../../stubs/five-led");
+var five = require("../../stubs/five");
 var expect = require("chai").expect;
 
 var exercise      = require('workshopper-exercise')(),
@@ -21,7 +21,11 @@ exercise = wrappedexec(exercise)
 // this actually runs the solution
 exercise.addProcessor(function (mode, callback) {
   // includes the solution to run it
-  proxyquire(path.join(process.cwd(), exercise.args[0]), {"johnny-five": five});
+  proxyquire(path.join(process.cwd(), exercise.args[0]), {"johnny-five": five.spyOn("Led")});
+
+  setTimeout(function() {
+    console.log("Please wait while your solution is tested...");
+  }, 1000);
 
   // need a better way of detecting when we are done..
   setTimeout(function() {
@@ -39,7 +43,9 @@ exercise.addVerifyProcessor(function (callback) {
       return callback(null, false);
     }
 
-    var led = five.instances.Led[0];
+    var led = five.Led.instances[0];
+
+    expect(led, "no led instance created").to.exist;
 
     expect(led.pin, "led expected to be connected to pin 13").to.equal(13);
     expect(led.strobe.calledWith(1000), "led.strobe was not called with 1000").to.be.true;
