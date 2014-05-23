@@ -33,6 +33,7 @@
     "sinon": "^1.9",
     "workshopper": "~1.0.0-alpha07",
     "workshopper-exercise": "~0.2.3",
-    "workshopper-wrappedexec": "~0.1.1"
+    "workshopper-wrappedexec": "~0.1.1",
+    "johnny-five": "^0.7.39"
   }
 }
