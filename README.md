@@ -1,7 +1,7 @@
 Nodebot Workshop
 ================
 
-**A [nodeschool][1] workshop on how to get your Ardunio alive with [rwaldron/johnny-five][2]**
+**A [nodeschool][1] workshop on how to get your Arduino alive with [rwaldron/johnny-five][2]**
 
 ![Nodebot workshop menu](https://raw.githubusercontent.com/tableflip/nodebot-workshop/master/screenshot.png)
 
@@ -13,7 +13,7 @@ Learn the basics of the [johnny-five][2] api, as a series of code challenges.
 
 The workshop will pose a challenge, and will test your code.
 
-The low level code to talk to the Ardunio is stubbed out.
+The low level code to talk to the Arduino is stubbed out.
 
 **You _will_ be writing working, executable johnny-five code.**
 
