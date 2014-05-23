@@ -48,7 +48,8 @@ exercise.addVerifyProcessor(function (callback) {
     expect(led, "no led instance created").to.exist;
 
     expect(led.pin, "led expected to be connected to pin 13").to.equal(13);
-    expect(led.strobe.calledWith(1000), "led.strobe was not called with 1000").to.be.true;
+    expect(led.strobe.called, "led.strobe was not called").to.be.true;
+    expect(led.strobe.getCall(0).args[0], "led.strobe was not called with 1000").to.equal(1000);
 
     // should have set pin 13 into digital output mode
     expect(io.pinMode.calledWith(13, io.MODES.OUTPUT)).to.be.true;
@@ -57,10 +58,10 @@ exercise.addVerifyProcessor(function (callback) {
     expect(io.digitalWrite.calledWith(13, io.HIGH)).to.be.true;
     expect(io.digitalWrite.calledWith(13, io.LOW)).to.be.true;
 
-    callback(null, true)
+    callback(null, true);
   } catch(e) {
-    callback(e, false)
+    callback(e, false);
   }
 })
 
-module.exports = exercise
+module.exports = exercise;
