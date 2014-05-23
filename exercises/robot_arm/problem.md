@@ -2,5 +2,6 @@ Attach a servo to pin 9 and a potentiometer to A2. Setup the potentiometer so wh
 
 Hint: You could use `five.Fn.map` to map the potentiometer values (0 - 1023) to servo angles (0 - 179).
 
-https://github.com/rwaldron/johnny-five/blob/master/lib/fn.js
+See:
+- Fn - https://github.com/rwaldron/johnny-five/blob/master/lib/fn.js
 
