@@ -1,0 +1,16 @@
+# Welcome to the nodebot workshop
+
+We're going to learn the basics of the `johnny-five` api, as a series of code challenges.
+
+`johnny-five` is an api for working with Arduino and other rapid prototyping boards, but...
+
+**You _don't_ need an Arduino for this workshop.**
+
+The workshop will pose a challenge, and will test your code.
+The low level code to talk to the Ardunio is stubbed out.
+
+**You _will_ be writing working, executable `johnny-five` code.**
+
+Each of your solutions can be run directly as a `node` program.
+Wire up an Arduino, connect the USB and you can see you solution run for real.
+

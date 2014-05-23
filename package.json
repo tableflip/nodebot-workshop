@@ -1,29 +1,36 @@
 {
-  "name": "johnny-five-is-alive",
-  "version": "0.0.0",
-  "description": "A nodeschool workshop on how to get your ardunio alive with johnny-five",
+  "name": "nodebot-workshop",
+  "version": "0.9.0",
+  "description": "A nodeschool workshop on getting your ardunio alive with johnny-five",
   "main": "index.js",
   "scripts": {
-    "start": "./johnny-five-is-alive.js",
+    "start": "./nodebot-workshop.js",
     "test": "say sorry"
   },
   "bin": {
-    "j5-tut": "./johnny-five-is-alive.js"
+    "nodebot-workshop": "./nodebot-workshop.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/olizilla/johnny-five-is-alive"
+    "url": "https://github.com/tableflip/nodebot-workshop"
   },
   "keywords": [
     "nodeschool",
     "johnny-five",
+    "nodebot",
     "arduino",
-    "workshop"
+    "workshop",
+    "workshopper",
+    "life is not a malfuction"
   ],
-  "author": "olizilla <oli@zilla.org.uk>",
+  "contributors":[
+    "olizilla",
+    "_alanshaw",
+    "achingbrain"
+  ],
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/olizilla/johnny-five-is-alive/issues"
+    "url": "https://github.com/tableflip/nodebot-workshop/issues"
   },
   "dependencies": {
     "chai": "^1.9",

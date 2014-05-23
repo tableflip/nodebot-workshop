@@ -1,16 +1,28 @@
-Johnny Five is ALIVE!
-=====================
+Nodebot Workshop
+================
 
-**Warning** This workshop is just the idea of a work in progress. It will not currently teach you anything.
+**A nodeschool workshop on how to get your ardunio alive with [rwaldron/johnny-five](https://github.com/rwaldron/johnny-five)**
 
-A nodeschool workshop on how to get your ardunio alive with rwaldron/johnny-five
+We're going to learn the basics of the `johnny-five` api, as a series of code challenges.
 
-The workshopper framework just went through a big refactor so I'm using the new 1.0 release of rvagg/learnyounode as the basis.
-https://github.com/rvagg/learnyounode
+`johnny-five` is an api for working with Arduino and other rapid prototyping boards.
 
-**Note** The simple path for building a workshopper is to compare the stdout of a users solution file with the stdout of an accpted answer.
-A useful johnny-five workshopper would allow the user to write a valid johnn-five program, with no requirement to set a mock ioboard implementation, so they could test their code in the workshopper and then run the same program, **unmodified**, against an ardunio.  
+**You _don't_ need an Arduino for this workshop.**
 
-## TODO
-- How to wrap the solution code and force the board object it creates to use a mock `ioboard` implementation.
-See: https://github.com/rvagg/workshopper-wrappedexec
+The workshop will pose a challenge, and will test your code.
+The low level code to talk to the Ardunio is stubbed out.
+
+**You _will_ be writing working, executable `johnny-five` code.**
+
+Each of your solutions can be run directly as a `node` program.
+Wire up an Arduino, connect the USB and you can see you solution run for real.
+
+
+## Thanks
+
+- @rvagg - and the [nodeschool.io](http://nodeschool.io/) team. This workshopper is based on the new 1.0 release of [rvagg/learnyounode](https://github.com/rvagg/learnyounode). It's ace, go try it https://github.com/rvagg/learnyounode
+- @rwaldron and the [johnny-five team](https://github.com/rwaldron/johnny-five/graphs/contributors)
+- @voodootikigod and the [nodebots team](http://nodebots.io/core.html)
+- @AnnaGerber of [node-ardx.org](http://node-ardx.org/)
+
+Brought to you by [@NodeBotsUK](https://twitter.com/NodeBotsUK)
