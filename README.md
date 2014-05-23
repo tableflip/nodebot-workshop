@@ -33,3 +33,5 @@ Wire up an Arduino, connect the USB and you can see you solution run for real.
 [2]: https://github.com/rwaldron/johnny-five
 
 Brought to you by [@NodeBotsUK](https://twitter.com/NodeBotsUK)
+
+![the nodebot](http://nodebots.io/img/nodebot.png)
