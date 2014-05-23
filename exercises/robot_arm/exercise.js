@@ -1,4 +1,5 @@
 var proxyquire = require("proxyquire");
+var async = require("async");
 var five = require("../../stubs/five");
 var expect = require("chai").expect;
 
@@ -53,41 +54,56 @@ exercise.addVerifyProcessor(function (callback) {
     expect(servo, "no Servo instance created").to.exist;
     expect(servo.pin, "servo expected to be connected to pin 9").to.equal(9);
 
-    var analogReadListener = io.analogRead.getCall(0).args[1]
+    var analogReadListener = io.analogRead.getCall(0).args[1];
 
-    var sensorScale = [0, 1023]
-    var servoScale = [0, 179]
+    var sensorScale = [0, 1023];
+    var servoScale = [0, 179];
 
     // If the user added the scale on the sensor then use that
     if (sensor.scale.callCount) {
-      var args = sensor.scale.getCall(0).args
+      var args = sensor.scale.getCall(0).args;
       if (Array.isArray(args[0])) {
-        servoScale = args[0]
+        servoScale = args[0];
       } else {
-        servoScale = [args[0], args[1]]
+        servoScale = [args[0], args[1]];
       }
     }
 
     var initial = {
       to: {callCount: servo.to.callCount}
-    }
+    };
 
-    var sensorValues = [12, 50, 341, 620, 999.9, 1013.256, 501, 227.5]
+    var sensorValues = [12, 50, 341, 620, 999.9, 1013.256, 501, 227.5];
+    var i = 0;
 
-    sensorValues.forEach(function (val, i) {
-      // Read with this value
-      analogReadListener(val)
+    async.eachSeries(
+      sensorValues,
+      function (val, cb) {
+        // Read with this value
+        analogReadListener(val);
 
-      expect(servo.to.callCount, "servo.to wasn't called when sensor was read").to.equal(initial.to.callCount + i + 1)
+        // Wait for the sensor to receive the value
+        setTimeout(function () {
+          try {
+            expect(servo.to.callCount, "servo.to wasn't called when sensor was read").to.equal(initial.to.callCount + i + 1);
 
-      var expectedAngle = five.Fn.map(val, sensorScale[0], sensorScale[1], servoScale[0], servoScale[1])
-      var actualAngle = servo.to.getCall(servo.to.callCount - 1).args[0]
+            var expectedAngle = five.Fn.map(val, sensorScale[0], sensorScale[1], servoScale[0], servoScale[1]);
+            var actualAngle = servo.to.getCall(servo.to.callCount - 1).args[0];
 
-      // +/- 5 degress is ok
-      expect(actualAngle, "didn't move servo to correct angle").to.be.closeTo(expectedAngle, 5)
-    })
+            // +/- 5 degress is ok
+            expect(actualAngle, "didn't move servo to correct angle").to.be.closeTo(expectedAngle, 5);
+            i++;
+            cb();
+          } catch (er) {
+            cb(er);
+          }
+        }, sensor.freq + 100)
+      },
+      function (er) {
+        if (er) return callback(er, false);
+        callback(null, true);
+      })
 
-    callback(null, true);
   } catch(e) {
     callback(e, false);
   }
