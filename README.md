@@ -1,4 +1,4 @@
-Nodebot Workshop
+Nodebot Workshop [![Dependency Status](https://david-dm.org/tableflip/nodebot-workshop.svg)](https://david-dm.org/tableflip/nodebot-workshop)
 ================
 
 **A [nodeschool][1] workshop on how to get your Arduino alive with [rwaldron/johnny-five][2]**
