@@ -3,6 +3,8 @@ Nodebot Workshop
 
 **A nodeschool workshop on how to get your ardunio alive with [rwaldron/johnny-five](https://github.com/rwaldron/johnny-five)**
 
+![Nodebot workshop menu](https://raw.githubusercontent.com/tableflip/nodebot-workshop/master/screenshot.png)
+
 We're going to learn the basics of the `johnny-five` api, as a series of code challenges.
 
 `johnny-five` is an api for working with Arduino and other rapid prototyping boards.
