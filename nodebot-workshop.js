@@ -5,7 +5,7 @@ const workshopper = require('workshopper')
     , menu        = require('./exercises/menu')
 
     , name        = 'nodebot-workshop'
-    , title       = 'nodebot-workshop'
+    , title       = 'Nodebot Workshop'
     , subtitle    = '\x1b[23mSelect an exercise and hit \x1b[3mEnter\x1b[23m to begin'
 
 function fpath (f) {
