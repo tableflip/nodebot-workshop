@@ -1,4 +1,4 @@
-**Welcome to the nodebot workshop**
+# Welcome to the nodebot-workshop
 
 We're going to learn the basics of the `johnny-five` api, as a series of code challenges.
 
@@ -16,13 +16,40 @@ Wire up an Arduino, connect the USB and you can see your solution run for real.
 
 -------------------------------------------------------------------------------
 
-## Blink...Blink
+# Blink...Blink
 
 Write a program that blinks an LED attached to pin 13 once every second.
 
-Before you begin, you'll need to install the `johnny-five` library using `npm install johnny-five`.
+- When the board is ready, you should create a new `Led`
+- You pass the pin number it should attach to as a parameter.
+- `Led` has a `strobe` method; it takes an interval in milliseconds.
 
-Create a file and `require` the `johnny-five` module. You'll need to create a new `Board` instance and attach an event listener, listening for the **ready** event.
+## For this you will need
 
-When the board is ready, you'll need to create a new `Led` instance, passing it the pin number it is attached to. Finally you should call the `strobe` method on your Led instance, passing it a time (in milliseconds) you want the strobe interval to be. 
+1. A directory for your answers and `cd` in to it
+2. Get johnny-five from npm: `npm install johnny-five`
+3. Add a file for your solution (e.g. 01-blink-blink.js)
 
+In all of your solutions you will need to:
+
+- `require` the `johnny-five` module
+- Create a `new Board` instance
+- Add a callback to the board's **ready** event.
+- Your solution goes inside that callback...
+
+```js
+  var five = require('johnny-five')
+  var board = new five.Board()
+  board.on('ready', function () {
+
+    // Your solution here!
+
+  })
+```
+
+## Docs
+
+- Board - https://github.com/rwaldron/johnny-five/wiki/Board
+- LED - https://github.com/rwaldron/johnny-five/wiki/Led#api
+
+---
