@@ -1,6 +1,7 @@
 var proxyquire = require("proxyquire");
 var five = require("../../stubs/five");
 var expect = require("chai").expect;
+var dgram = require("dgram")
 
 var exercise      = require('workshopper-exercise')(),
   filecheck       = require('workshopper-exercise/filecheck'),
@@ -21,7 +22,7 @@ exercise = wrappedexec(exercise)
 // this actually runs the solution
 exercise.addProcessor(function (mode, callback) {
   // includes the solution to run it
-  proxyquire(path.join(process.cwd(), exercise.args[0]), {"johnny-five": five.spyOn("Led")});
+  proxyquire(path.join(process.cwd(), exercise.args[0]), {"johnny-five": five.spyOn("Piezo")});
 
   setTimeout(function() {
     console.log("Please wait while your solution is tested...");
@@ -43,23 +44,30 @@ exercise.addVerifyProcessor(function (callback) {
       return callback(null, false);
     }
 
-    var led = five.Led.instances[0];
+    var piezo = five.Piezo.instances[0];
 
-    expect(led, "no led instance created").to.exist;
+    expect(piezo, "no Piezo instance created").to.exist;
+    expect(piezo.pin, "piezo expected to be connected to pin 8").to.equal(8);
 
-    expect(led.pin, "led expected to be connected to pin 13").to.equal(13);
-    expect(led.strobe.called, "led.strobe was not called").to.be.true;
-    expect(led.strobe.getCall(0).args[0], "led.strobe was not called with 1000").to.equal(1000);
+    var initial = {
+      tone: {callCount: piezo.tone.callCount}
+    };
 
-    // should have set pin 13 into digital output mode
-    expect(io.pinMode.calledWith(13, io.MODES.OUTPUT)).to.be.true;
+    var buffer = new Buffer("HAI!?");
 
-    // should have turned pin 13 on and off
-    expect(io.digitalWrite.calledWith(13, io.HIGH)).to.be.true;
-    expect(io.digitalWrite.calledWith(13, io.LOW)).to.be.true;
+    dgram.createSocket("udp4").send(buffer, 0, buffer.length, 1337);
 
-    callback(null, true);
-  } catch(e) {
+    // Allow some time for the udp packet to reach server and sound to be played
+    setTimeout(function () {
+      try {
+        expect(piezo.tone.callCount, "Piezo didn't play a tone when sent a UDP message").to.be.gt(initial.tone.callCount);
+        callback(null, true);
+      } catch (er) {
+        callback(er, false);
+      }
+    }, 500);
+
+  } catch (e) {
     callback(e, false);
   }
 })

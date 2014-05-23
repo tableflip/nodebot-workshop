@@ -29,8 +29,13 @@ function createSpy (Constructor) {
 
     SpyConstructor.instances.push(this);
   }
-
   inherits(SpyConstructor, Constructor);
+
+  // Copy keys from constructor onto the spy
+  Object.keys(Constructor).forEach(function (key) {
+    SpyConstructor[key] = Constructor[key];
+  });
+
   SpyConstructor.instances = [];
 
   return sinon.spy(SpyConstructor);
