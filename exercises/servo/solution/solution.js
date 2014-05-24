@@ -8,6 +8,6 @@ board.on('ready', function () {
 
   board.wait(3000, function () {
     servo.stop();
-    servo.to(45);
+    servo.center();
   });
 });

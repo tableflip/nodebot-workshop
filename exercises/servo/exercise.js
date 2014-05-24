@@ -30,7 +30,7 @@ exercise.addProcessor(function (mode, callback) {
   // need a better way of detecting when we are done..
   setTimeout(function() {
     callback(null);
-  }, 5000);
+  }, 4000);
 })
 
 // add a processor only for 'verify' calls
@@ -57,10 +57,10 @@ exercise.addVerifyProcessor(function (callback) {
     var stop0 = servo.stop.getCall(0);
     var toLast = servo.to.getCall(servo.to.callCount - 1);
 
-    expect(wait0.calledBefore(stop0), "servo did not wait expected time before stopping sweep").to.be.true;
+    expect(wait0.calledBefore(stop0), "servo unexpectedly stopped before waiting").to.be.true;
     expect(wait0.args[0], "servo did not wait for expected time").to.equal(3000);
-    expect(stop0.calledBefore(toLast), "servo did not stop before moving to expected angle").to.be.true;
-    expect(toLast.args[0], "servo did not move to expected angle").to.equal(45);
+    expect(stop0.calledBefore(toLast), "servo did not stop before returning to center").to.be.true;
+    expect(toLast.args[0], "servo did not return to center").to.equal(90);
 
     callback(null, true);
   } catch(e) {
