@@ -20,13 +20,13 @@ Wire up an Arduino, connect the USB and you can see your solution run for real.
 
 Write a program that blinks an LED attached to pin 13 once every second.
 
-- When the board is ready, you should create a new `Led`
-- You pass the pin number it should attach to as a parameter.
+- When the board is ready, create a new `Led` instance.
+- Pass a number to the `Led` constructor to tell it which pin to attach to.
 - `Led` has a `strobe` method; it takes an interval in milliseconds.
 
 ## For this you will need
 
-1. A directory for your answers and `cd` in to it
+1. A directory for your answers and `cd` in to it.
 2. Get johnny-five from npm: `npm install johnny-five`
 3. Add a file for your solution (e.g. 01-blink-blink.js)
 

@@ -30,7 +30,7 @@ exercise.addProcessor(function (mode, callback) {
   // need a better way of detecting when we are done..
   setTimeout(function() {
     callback(null);
-  }, 2000);
+  }, 4000);
 })
 
 // add a processor only for 'verify' calls
