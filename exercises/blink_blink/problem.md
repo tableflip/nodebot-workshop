@@ -18,7 +18,7 @@ Wire up an Arduino, connect the USB and you can see your solution run for real.
 
 # Blink...Blink
 
-Write a program that blinks an LED attached to pin 13 once every second.
+**Write a program that blinks an LED attached to pin 13 once every second.**
 
 - When the board is ready, create a new `Led` instance.
 - Pass a number to the `Led` constructor to tell it which pin to attach to.
@@ -50,6 +50,6 @@ In all of your solutions you will need to:
 ## Docs
 
 - Board - https://github.com/rwaldron/johnny-five/wiki/Board
-- LED - https://github.com/rwaldron/johnny-five/wiki/Led#api
+- Led - https://github.com/rwaldron/johnny-five/wiki/Led#api
 
 ---

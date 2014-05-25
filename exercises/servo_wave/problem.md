@@ -5,6 +5,17 @@ __Make a servo wave at you for 3 seconds, stop, and return to center.__
 - Use `board.wait` to schedule a callback while your servo keeps sweeping.
 - Check the docs to see how to bring it back into line.
 
+## Boilerplate
+```js
+  var five = require('johnny-five')
+  var board = new five.Board()
+  board.on('ready', function () {
+
+    // Your solution here!
+
+  })
+```
+
 ## Docs
 - Servo - https://github.com/rwaldron/johnny-five/wiki/Servo#api
 - Board - https://github.com/rwaldron/johnny-five/wiki/Board#api
