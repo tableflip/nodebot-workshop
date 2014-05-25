@@ -21,10 +21,23 @@ Each of your solutions can be run directly as a `node` program.
 
 Wire up an Arduino, connect the USB and you can see you solution run for real.
 
+## Code style
+
+To move towards a consistent style for nodeschool projects we use the .jshintrc
+as defined in learnyounode: https://github.com/rvagg/learnyounode/blob/master/.jshintrc
+
+Your favourite jshint runner will work but a gulpfile is provided for hipsters.
+
+```shell
+npm install -g glup
+gulp
+```
+
+...to run it.
 
 ## Thanks
 
-- @rvagg - and the [nodeschool.io](https://github.com/rvagg/learnyounode) team. This workshopper is based on the new 1.0 release of [rvagg/learnyounode](https://github.com/rvagg/learnyounode). It's ace, go try it https://github.com/rvagg/learnyounode
+- @rvagg - and the [nodeschool.io][1] team. This workshopper is based on the new 1.0 release of [rvagg/learnyounode](https://github.com/rvagg/learnyounode). It's ace, go try it https://github.com/rvagg/learnyounode
 - @rwaldron and the [johnny-five team](https://github.com/rwaldron/johnny-five/graphs/contributors)
 - @voodootikigod and the [nodebots team](http://nodebots.io/core.html)
 - @AnnaGerber of [node-ardx.org](http://node-ardx.org/)

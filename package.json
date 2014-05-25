@@ -23,7 +23,7 @@
     "workshopper",
     "life is not a malfuction"
   ],
-  "contributors":[
+  "contributors": [
     "olizilla",
     "_alanshaw",
     "achingbrain"
@@ -42,5 +42,10 @@
     "workshopper-exercise": "~0.2.3",
     "workshopper-wrappedexec": "~0.1.1",
     "johnny-five": "^0.7.39"
+  },
+  "devDependencies": {
+    "gulp-jshint": "^1.6.1",
+    "gulp": "^3.6.2",
+    "jshint-stylish": "^0.2.0"
   }
 }
