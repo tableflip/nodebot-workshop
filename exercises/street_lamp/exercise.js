@@ -21,7 +21,7 @@ exercise = wrappedexec(exercise)
 // this actually runs the solution
 exercise.addProcessor(function (mode, callback) {
   // includes the solution to run it
-  proxyquire(path.join(process.cwd(), exercise.args[0]), {'johnny-five': five.spyOn("Led")})
+  proxyquire(path.join(process.cwd(), exercise.args[0]), {'johnny-five': five.spyOn('Led')})
 
   setTimeout(function() {
     console.log('Please wait while your solution is tested...')
@@ -54,7 +54,7 @@ exercise.addVerifyProcessor(function (callback) {
       }
     }
 
-    expect(analogReadListener, "No values were read from A0").to.not.be.null
+    expect(analogReadListener, 'No values were read from A0').to.not.be.null
 
     var led = five.Led.instances[0]
 
@@ -75,7 +75,10 @@ exercise.addVerifyProcessor(function (callback) {
       setTimeout(function () {
         try {
           expect(led.off.called, 'led was not turned off when resistor value low').to.be.true
-          expect(led.off.lastCall.calledAfter(led.on.lastCall), 'led was not turned off after it was turned on').to.be.true
+          expect(
+            led.off.lastCall.calledAfter(led.on.lastCall),
+            'led was not turned off after it was turned on'
+          ).to.be.true
         } catch (er) {
           callback(er, false)
         }
@@ -84,7 +87,10 @@ exercise.addVerifyProcessor(function (callback) {
 
         setTimeout(function () {
           try {
-            expect(led.on.lastCall.calledAfter(led.off.lastCall), 'led was not turned on after it was turned off').to.be.true
+            expect(
+              led.on.lastCall.calledAfter(led.off.lastCall),
+              'led was not turned on after it was turned off'
+            ).to.be.true
             callback(null, true)
           } catch (er) {
             callback(er, false)

@@ -56,11 +56,7 @@ exercise.addVerifyProcessor(function (callback) {
       }
     }
 
-    expect(analogReadListener, "No values were read from A0").to.not.be.null
-
-    function random (min, max) {
-      return Math.random() * (max - min + 1) + min
-    }
+    expect(analogReadListener, 'No values were read from A0').to.not.be.null
 
     var temps = [1,1,1,1,1].map(function () {
       return random(133, 163) // Between ~ 15 deg and 30 deg
@@ -109,5 +105,9 @@ exercise.addVerifyProcessor(function (callback) {
     callback(e, false)
   }
 })
+
+function random (min, max) {
+  return Math.random() * (max - min + 1) + min
+}
 
 module.exports = exercise
