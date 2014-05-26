@@ -35,13 +35,14 @@
   "dependencies": {
     "async": "^0.9.0",
     "chai": "^1.9",
+    "dnode": "^1.2.0",
     "ioboard": "^3.0",
+    "johnny-five": "^0.7.39",
     "proxyquire": "^1.0.0",
     "sinon": "^1.9",
     "workshopper": "~1.0.0-alpha07",
     "workshopper-exercise": "~0.2.3",
-    "workshopper-wrappedexec": "~0.1.1",
-    "johnny-five": "^0.7.39"
+    "workshopper-wrappedexec": "~0.1.1"
   },
   "devDependencies": {
     "gulp-jshint": "^1.6.1",
