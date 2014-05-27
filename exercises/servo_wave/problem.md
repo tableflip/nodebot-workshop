@@ -25,7 +25,7 @@ __Make a servo wave at you for 3 seconds, stop, and return to center.__
       -===+===-
         | | |
         |   |
-        .-.-.
+        '---'
         | | |
         | | |
 GND  o--. | .--o  Pin 9
