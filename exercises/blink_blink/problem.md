@@ -47,6 +47,13 @@ In all of your solutions you will need to:
   })
 ```
 
+## Circuit diagram
+
+```
+           LED     330
+ Pin 13 o--->|----/\/\/----o GND
+```
+
 ## Docs
 
 - Board - https://github.com/rwaldron/johnny-five/wiki/Board
