@@ -4,6 +4,8 @@ Connect the Photoresistor to A0 and the LED to 9.
 
 Make the LED turn on when the photoresistor's value is greater than 600.
 
+## Circuit diagram
+
 ```
            PhotoR     10K
     +5 o---/\/\/--.--/\/\/--.--o GND
@@ -14,5 +16,5 @@ Make the LED turn on when the photoresistor's value is greater than 600.
  Pin 9 o--->|-----/\/\/------
 ```
 
-See:
-- https://github.com/rwaldron/johnny-five/blob/master/docs/photoresistor.md
+## Docs
+- Photoresistor - https://github.com/rwaldron/johnny-five/blob/master/docs/photoresistor.md
