@@ -1,8 +1,7 @@
-Build a working street lamp using a Photoresistor and an LED.
+__Build a working street lamp using a Photoresistor and an LED.__
 
-Connect the Photoresistor to A0 and the LED to 9.
-
-Make the LED turn on when the photoresistor's value is greater than 600.
+* Connect the Photoresistor to A0 and the LED to 9.
+* Make the LED turn on when the photoresistor's value is greater than 600.
 
 ## Circuit diagram
 
