@@ -33,7 +33,7 @@ as defined in learnyounode: https://github.com/rvagg/learnyounode/blob/master/.j
 Your favourite jshint runner will work but a gulpfile is provided for hipsters.
 
 ```shell
-npm install -g glup
+npm install -g gulp
 gulp
 ```
 
