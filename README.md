@@ -47,4 +47,4 @@ gulp
 
 Brought to you by [@NodeBotsUK](https://twitter.com/NodeBotsUK)
 
-![the nodebot](http://nodebots.io/img/nodebot.png)
+<img src="http://nodebots.io/img/nodebot.png" width="175">
