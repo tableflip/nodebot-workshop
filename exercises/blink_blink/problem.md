@@ -54,6 +54,11 @@ In all of your solutions you will need to:
  Pin 13 o--->|----/\/\/----o GND
 ```
 
+## Components
+- LED - http://node-ardx.org/electronics-primer#led
+
+> Emits light when a small current is passed through it. (only in one direction)
+
 ## Docs
 
 - Board - https://github.com/rwaldron/johnny-five/wiki/Board

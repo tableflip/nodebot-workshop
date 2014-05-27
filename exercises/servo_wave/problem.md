@@ -31,8 +31,13 @@ __Make a servo wave at you for 3 seconds, stop, and return to center.__
 GND  o--. | .--o  Pin 9
           |
  +5  o----.
- 
+
 ```
+
+## Components
+- Servo - http://node-ardx.org/electronics-primer#servo
+
+> Takes a timed pulse and converts it into an angular position of the output shaft.
 
 ## Docs
 - Servo - https://github.com/rwaldron/johnny-five/wiki/Servo#api

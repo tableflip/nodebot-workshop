@@ -22,8 +22,14 @@ Pin 5  o------------         |
                 '--|--|--'   |
                    |         |
                    ----------.---o  GND
- 
+
 ```
+
+## Components
+
+- Button - http://node-ardx.org/electronics-primer#pushbutton
+
+> Completes a circuit when it is pressed.
 
 ## Docs
 

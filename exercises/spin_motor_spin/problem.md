@@ -27,6 +27,12 @@ Pin 9  o---/\/\/---|  Transistor
    +5  o-------.------
 ```
 
+## Components
+
+- Motor - http://node-ardx.org/electronics-primer#dcmotor
+
+> Spins when a current is passed through it.
+
 ## Docs
 
 - Board - https://github.com/rwaldron/johnny-five/wiki/Board#api
