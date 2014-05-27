@@ -18,5 +18,4 @@ __Create a UDP server that plays a sound when a message is received.__
 ## Docs
 
 - http://nodejs.org/api/dgram.html
-- https://github.com/rwaldron/johnny-five/blob/master/lib/piezo.js
 - https://github.com/rwaldron/johnny-five/blob/master/docs/piezo.md
