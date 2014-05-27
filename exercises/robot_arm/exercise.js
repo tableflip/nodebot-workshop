@@ -99,7 +99,7 @@ exercise.addVerifyProcessor(function (callback) {
           } catch (er) {
             cb(er)
           }
-        }, sensor.freq + 100)
+        }, sensor.freq + 0)
       },
       function (er) {
         if (er) return callback(er, false)
