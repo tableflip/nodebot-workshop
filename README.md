@@ -3,6 +3,10 @@ Nodebot Workshop [![Dependency Status](https://david-dm.org/tableflip/nodebot-wo
 
 **A [nodeschool][1] workshop on how to get your Arduino alive with [rwaldron/johnny-five][2]**
 
+```shell
+ npm install -g nodebot-workshop
+``` 
+
 ![Nodebot workshop menu](https://raw.githubusercontent.com/tableflip/nodebot-workshop/master/screenshot.png)
 
 Learn the basics of the [johnny-five][2] api, as a series of code challenges.
@@ -29,7 +33,7 @@ as defined in learnyounode: https://github.com/rvagg/learnyounode/blob/master/.j
 Your favourite jshint runner will work but a gulpfile is provided for hipsters.
 
 ```shell
-npm install -g glup
+npm install -g gulp
 gulp
 ```
 
