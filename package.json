@@ -5,7 +5,7 @@
   "main": "nodebot-workshop.js",
   "scripts": {
     "start": "./nodebot-workshop.js",
-    "test": "say sorry"
+    "test": "gulp"
   },
   "bin": {
     "nodebot-workshop": "./nodebot-workshop.js"
@@ -47,6 +47,8 @@
   "devDependencies": {
     "gulp-jshint": "^1.6.1",
     "gulp": "^3.6.2",
-    "jshint-stylish": "^0.2.0"
+    "jshint-stylish": "^0.2.0",
+    "through2": "^0.4.2",
+    "gulp-shell": "^0.2.5"
   }
 }
