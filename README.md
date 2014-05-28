@@ -23,7 +23,7 @@ The low level code to talk to the Arduino is stubbed out.
 
 Each of your solutions can be run directly as a `node` program.
 
-Wire up an Arduino, connect the USB and you can see you solution run for real.
+Wire up an Arduino, connect the USB and you can see your solution run for real.
 
 ## Code style
 
