@@ -1,8 +1,9 @@
 __Make a servo wave at you for 3 seconds, stop, and return to center.__
 
 - Create a new `Servo` instance attached to pin 9.
-- Use `servo.sweep` to rotate between 0˚ and 180˚ until you call `stop`
-- Use `board.wait` to schedule a callback while your servo keeps sweeping.
+- Use `servo.sweep` to rotate between 0˚ and 180˚.
+- Use `board.wait` to schedule a 'reset' callback.
+- The 'reset' callback should `stop` and `center` the servo.
 - Check the docs to see how to bring it back into line.
 
 ## Boilerplate
