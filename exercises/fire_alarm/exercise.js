@@ -1,7 +1,5 @@
 var proxyquire = require('proxyquire')
 var five = require('../../stubs/five')
-var async = require('async')
-var dnode = require('dnode')
 var expect = require('chai').expect
 
 var exercise = require('workshopper-exercise')()
@@ -45,12 +43,19 @@ exercise.addVerifyProcessor(function (callback) {
       return callback(null, false)
     }
 
+    const pins = {
+      temp: 0,
+      led: 13,
+      btn: 5,
+      piezo: 9
+    }
+
     // Get the listener that is listening for reads on pin A0
     var analogReadListener = null
 
     for (var i = 0; i < io.analogRead.callCount; i++) {
       var call = io.analogRead.getCall(i)
-      if (call.args[0] === 0) {
+      if (call.args[0] === pins.temp) {
         analogReadListener = call.args[1]
         break
       }
@@ -58,53 +63,60 @@ exercise.addVerifyProcessor(function (callback) {
 
     expect(analogReadListener, 'No values were read from A0').to.not.be.null
 
-    var temps = [1,1,1,1,1].map(function () {
-      return random(133, 163) // Between ~ 15 deg and 30 deg
-    })
+    analogReadListener(random(50.1, 100))
 
-    var d = dnode.connect(1337)
+    expect(io.digitalWrite.called, 'Fire alarm went off before a temperature was received!').to.be.false
 
-    d.on('remote', function (remote) {
-      if (!remote.getTemperature) {
-        return callback(new Error('Remote has no method \'getTemperature\''), false)
-      }
+    // Within 2 seconds, the piezo should have sounded and the LED turned on
+    setTimeout(function () {
+      expect(io.digitalWrite.calledWith(pins.piezo, io.HIGH), 'Piezo was not turned on when fire started').to.be.true
+      expect(io.digitalWrite.calledWith(pins.led, io.HIGH), 'LED was not turned on when fire started').to.be.true
 
-      async.eachSeries(
-        temps,
-        function (val, cb) {
-          // Read with this value
-          analogReadListener(val)
+      analogReadListener(random(0, 50))
 
-          // Wait for the sensor to receive the value
-          setTimeout(function () {
-            remote.getTemperature(function (actualTemp) {
-              try {
-                var expectedTemp = ((val * 0.004882814) - 0.5) * 100
+      // Within 2 seconds the last call to digitalWrite should have been with io.LOW
+      setTimeout(function () {
+        expect(io.digitalWrite.calledWith(pins.piezo, io.LOW), 'Piezo was not turned off when fire stopped').to.be.true
+        expect(io.digitalWrite.calledWith(pins.led, io.LOW), 'LED was not turned off when fire stopped').to.be.true
 
-                // +/- 1 degree is ok
-                expect(actualTemp, 'didn\'t receive expected temperature').to.be.closeTo(expectedTemp, 1)
+        var lastPiezoLowCall = lastCallWith(io.digitalWrite, pins.piezo, io.LOW)
+        var lastLedLowCall = lastCallWith(io.digitalWrite, pins.led, io.LOW)
 
-                cb()
-              } catch (er) {
-                cb(er)
-              }
-            })
-          }, 1000)
-        },
-        function (er) {
-          if (er) return callback(er, false)
-          callback(null, true)
-        })
-    })
+        // After 2 more seconds the last piezo/led low call should have been before the last piezo/led high call
+        setTimeout(function () {
+          var lastPiezoHighCall = lastCallWith(io.digitalWrite, pins.piezo, io.HIGH)
+          var lastLedHighCall = lastCallWith(io.digitalWrite, pins.led, io.HIGH)
 
-    d.on('error', function (er) {
-      callback(er, false)
-    })
+          expect(
+            lastPiezoLowCall.calledAfter(lastPiezoHighCall),
+            'Piezo was not turned off after it was turned on and fire stopped'
+          ).to.be.true
+
+          expect(
+            lastLedLowCall.calledAfter(lastLedHighCall),
+            'LED was not turned off after it was turned on and fire stopped'
+          ).to.be.true
+        }, 2000)
+
+      }, 2000)
+
+    }, 2000)
 
   } catch (e) {
     callback(e, false)
   }
 })
+
+function lastCallWith (spy/*, arg0, arg1...*/) {
+  var args = Array.prototype.slice.call(arguments, 1)
+  for (var i = spy.callCount - 1; i >=0; i--) {
+    var call = spy.getCall(i)
+    if (call.calledWith.apply(call, args)) {
+      return call
+    }
+  }
+  return null
+}
 
 function random (min, max) {
   return Math.random() * (max - min + 1) + min
