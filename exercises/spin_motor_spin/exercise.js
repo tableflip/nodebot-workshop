@@ -2,11 +2,11 @@ var proxyquire = require('proxyquire')
 var five = require('../../stubs/five')
 var expect = require('chai').expect
 
-var exercise      = require('workshopper-exercise')(),
-  filecheck       = require('workshopper-exercise/filecheck'),
-  execute         = require('workshopper-exercise/execute'),
-  wrappedexec     = require('workshopper-wrappedexec'),
-  path            = require('path')
+var exercise = require('workshopper-exercise')()
+var filecheck = require('workshopper-exercise/filecheck')
+var execute = require('workshopper-exercise/execute')
+var wrappedexec = require('workshopper-wrappedexec')
+var path = require('path')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
