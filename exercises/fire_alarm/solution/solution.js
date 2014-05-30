@@ -7,62 +7,52 @@ board.on('ready', function () {
   var btn = new five.Button(5)
   var thermo = new five.Sensor('A0')
 
-  var temp = null
   var threshold = 50
-  var wasReset = false
+  var isOnFire = false
+  var isReset = false
 
-  btn.on('press', function () {
-    if (temp <= threshold) return
-    noFire()
-    wasReset = true
-  })
+  var sirenInterval = null
 
-  thermo.on('change', function () {
-    // Convert to celsius (TMP36)
-    temp = ((this.value * 0.004882814) - 0.5) * 100
+  // Sound the alarm
+  function panic () {
+    if (isOnFire) return
+    isOnFire = true
 
-    if (wasReset && temp <= threshold) {
-      wasReset = false
-    }
-
-    if (wasReset && temp > threshold) {
-      return
-    }
-
-    if (temp <= threshold) {
-      noFire()
-    } else {
-      fire()
-    }
-  })
-
-  var blazing = false
-
-  function fire () {
-    if (blazing) return
     led.strobe(1000)
-    siren()
-    blazing = true
-  }
-
-  function noFire () {
-    if (!blazing) return
-    led.stop().off()
-    stopSiren()
-    blazing = false
-  }
-
-  var sirenTimeout = null
-
-  function siren () {
-    sirenTimeout = setTimeout(function () {
+    piezo.tone(five.Piezo.Notes.c, 750)
+    sirenInterval = setInterval(function () {
       piezo.tone(five.Piezo.Notes.c, 750)
-      siren()
     }, 1000)
   }
 
-  function stopSiren () {
-    clearTimeout(sirenTimeout)
+  // Silence the things
+  function calm () {
+    if (!isOnFire) return
+    isOnFire = false
+
+    led.stop().off()
+    clearInterval(sirenInterval)
     piezo.noTone()
   }
+
+  // The reset button
+  btn.on('press', function () {
+    if (!isOnFire) return
+    isReset = true
+    calm()
+  })
+
+  // Watch the temp
+  thermo.on('change', function () {
+    // Convert to celsius (TMP36)
+    var temp = ((this.value * 0.004882814) - 0.5) * 100
+
+    if (!isReset && temp > threshold) {
+      panic()
+    } else {
+      calm()
+      isReset = false // clear the reset flag when temp drops below threshold
+    }
+  })
+
 })
