@@ -47,8 +47,10 @@ board.on('ready', function () {
     // Convert to celsius (TMP36)
     var temp = ((this.value * 0.004882814) - 0.5) * 100
 
-    if (!isReset && temp > threshold) {
-      panic()
+    if (temp > threshold) {
+      if (!isReset) {
+        panic()
+      }
     } else {
       calm()
       isReset = false // clear the reset flag when temp drops below threshold
