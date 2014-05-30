@@ -8,6 +8,39 @@ __Build a "fire alarm" that sounds when the air temperature is more than 50°C._
 * If the temperature drops below 50°C the piezo and LED should switch off
 * If the button is pressed the piezo and LED should turn off and should not turn on again unless the temperature drops below 50°C
 
+## Circuit diagram
+
+```
+                 LED         330
+Pin 13  o-------->|---------/\/\/--------
+                                        |
+Pin 5   o----------------------         |
+                              |         |
+                       10k    |         |
+   +5   o----.--------/\/\/---.         |
+             |                |         |
+             |                |         |
+             |             .--|--|--.   |
+             |             | |  |   |   |
+             |   Button  --+-|  |   |   |
+             |             | |  |   |   |
+             |             '--|--|--'   |
+             |                |         |
+             |                ----------.---o  GND
+             __                         |
+            |   \                       |
+    A0  o---|    ) TMP36                |
+            |__ /                       |
+             |                          |
+             ---------------------------.
+                                        |
+             Piezo                      |
+               _                        |
+             || ||                      |
+ Pin 9   o---|| ||-----------------------
+             ||_||
+```
+
 ## Docs
 
 - LED - https://github.com/rwaldron/johnny-five/wiki/Led
