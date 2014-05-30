@@ -36,14 +36,20 @@ board.on('ready', function () {
     }
   })
 
+  var blazing = false
+
   function fire () {
+    if (blazing) return
     led.strobe(1000)
     siren()
+    blazing = true
   }
 
   function noFire () {
+    if (!blazing) return
     led.stop().off()
     stopSiren()
+    blazing = false
   }
 
   var sirenTimeout = null
