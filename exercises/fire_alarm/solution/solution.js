@@ -37,13 +37,11 @@ board.on('ready', function () {
   })
 
   function fire () {
-    console.log('Fire!')
     led.strobe(1000)
     siren()
   }
 
   function noFire () {
-    console.log('No fire')
     led.stop().off()
     stopSiren()
   }
@@ -59,5 +57,6 @@ board.on('ready', function () {
 
   function stopSiren () {
     clearTimeout(sirenTimeout)
+    piezo.noTone()
   }
 })
