@@ -21,7 +21,7 @@ exercise = wrappedexec(exercise)
 // this actually runs the solution
 exercise.addProcessor(function (mode, callback) {
   // includes the solution to run it
-  proxyquire(path.join(process.cwd(), exercise.args[0]), {'johnny-five': five.spyOn('Led')})
+  proxyquire(path.join(process.cwd(), exercise.args[0]), {'johnny-five': five.spyOn('Led', 'Sensor')})
 
   setTimeout(function() {
     console.log('Please wait while your solution is tested...')
@@ -57,9 +57,13 @@ exercise.addVerifyProcessor(function (callback) {
     expect(analogReadListener, 'No values were read from A0').to.not.be.null
 
     var led = five.Led.instances[0]
+    var sensor = five.Sensor.instances[0]
 
     expect(led, 'no led instance created').to.exist
     expect(led.pin, 'led expected to be connected to pin 9').to.equal(9)
+
+    // User may have set a high value for analog noise filtering
+    var freq = sensor ? sensor.freq : 100
 
     analogReadListener(random(600, 900))
 
@@ -95,9 +99,9 @@ exercise.addVerifyProcessor(function (callback) {
           } catch (er) {
             callback(er, false)
           }
-        }, 100)
-      }, 100)
-    }, 100)
+        }, freq)
+      }, freq)
+    }, freq)
 
   } catch (e) {
     callback(e, false)
