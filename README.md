@@ -4,8 +4,11 @@ Nodebot Workshop [![Build Status](https://travis-ci.org/tableflip/nodebot-worksh
 **A [nodeschool][1] workshop on how to get your Arduino alive with [rwaldron/johnny-five][2]**
 
 ```shell
- npm install -g nodebot-workshop
-``` 
+# Install
+npm install -g nodebot-workshop
+# Run
+nodebot-workshop
+```
 
 ![Nodebot workshop menu](https://raw.githubusercontent.com/tableflip/nodebot-workshop/master/screenshot.png)
 
