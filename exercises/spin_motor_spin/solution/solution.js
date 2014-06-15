@@ -12,9 +12,9 @@ board.on('ready', function () {
 
   motor.on('stop', function () {
     board.wait(1000, function () {
-      motor.start()
+      motor.start(200)
     })
   })
 
-  motor.start()
+  motor.start(200)
 })
