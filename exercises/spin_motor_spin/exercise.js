@@ -58,6 +58,7 @@ exercise.addVerifyProcessor(function (callback) {
 
     // Start was called before stop
     expect(start0.calledBefore(stop0), 'motor was not started before it was stopped!').to.be.true
+    expect(start0.args[0], 'motor not started at 200').to.equal(200)
     expect(board.wait.callCount, 'board.wait was not called').to.be.gt(1)
 
     var wait0 = board.wait.getCall(0)
@@ -69,6 +70,7 @@ exercise.addVerifyProcessor(function (callback) {
     expect(wait1.calledAfter(stop0), 'didn\'t use board.wait after motor stopped')
     expect(wait1.args[0], 'didn\'t use board.wait to wait 1 second before starting the motor again').to.equal(1000)
     expect(start1.calledAfter(wait1), 'motor didn\'t start again after 1 second')
+    expect(start1.args[0], 'motor not started again at 200').to.equal(200)
 
     callback(null, true)
   } catch(e) {

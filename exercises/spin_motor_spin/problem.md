@@ -1,5 +1,6 @@
 __Attach a motor to pin 9 and start it spinning!__
 
+* Spin the motor at **200** mph
 * Use `board.wait` to stop the motor spinning after **2 seconds**
 * Start it spinning again after another second
 * Ensure this loop repeats infinitely
