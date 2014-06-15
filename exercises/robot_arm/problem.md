@@ -46,3 +46,5 @@ GND  o---.------/\/\/------.
 - A pot produces input values between 0 and 1023.
 - A servo can typically be moved between 0 and 179 degrees.
 - `five.Fn.map` can map the pot values (0 - 1023) to servo angles (0 - 179).
+
+---

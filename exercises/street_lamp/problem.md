@@ -1,8 +1,8 @@
 __Build a street lamp that turns on as it gets dark.__
 
-* Use photoresistor and an LED.
-* Connect the photoresistor to A0 and the LED to 9.
-* Make the LED turn on when the photoresistor's value is greater than 600.
+* Use photoresistor and an LED
+* Connect the photoresistor to A0 and the LED to 9
+* Make the LED turn on when the photoresistor's value is greater than 600
 
 ## Circuit diagram
 
@@ -28,3 +28,5 @@ __Build a street lamp that turns on as it gets dark.__
 `johnny-five` has a generic Sensor object for handling various analog inputs.
 It fires a data event with the current reading of the sensor.
 The sensor value is available to the callback as `this.value`
+
+---
