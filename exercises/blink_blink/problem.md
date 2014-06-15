@@ -26,7 +26,7 @@ Wire up an Arduino, connect the USB and you can see your solution run for real.
 
 ## For this you will need
 
-1. A directory for your answers and `cd` in to it.
+1. A directory for your answers and `cd` into it.
 2. Get johnny-five from npm: `npm install johnny-five`
 3. Add a file for your solution (e.g. 01-blink-blink.js)
 
@@ -34,7 +34,7 @@ In all of your solutions you will need to:
 
 - `require` the `johnny-five` module
 - Create a `new Board` instance
-- Add a callback to the board's **ready** event.
+- Add a callback to the board's **ready** event
 - Your solution goes inside that callback...
 
 ```js
@@ -57,7 +57,7 @@ In all of your solutions you will need to:
 ## Components
 - LED - http://node-ardx.org/electronics-primer#led
 
-> Emits light when a small current is passed through it. (only in one direction)
+> Emits light when a small current is passed through it (only in one direction).
 
 ## Docs
 
