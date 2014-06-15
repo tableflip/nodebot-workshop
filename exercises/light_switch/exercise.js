@@ -49,10 +49,7 @@ exercise.addVerifyProcessor(function (callback) {
   try {
     var io = five.stubs.firmata.singleton
 
-    if (!io) {
-      // yikes, board was never created
-      return callback(null, false)
-    }
+    expect(io, 'no board instance created').to.exist
 
     var btn = five.Button.instances[0]
     var led = five.Led.instances[0]

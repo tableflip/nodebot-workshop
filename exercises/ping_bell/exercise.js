@@ -39,10 +39,7 @@ exercise.addVerifyProcessor(function (callback) {
   try {
     var io = five.stubs.firmata.singleton
 
-    if (!io) {
-      // yikes, board was never created
-      return callback(null, false)
-    }
+    expect(io, 'no board instance created').to.exist
 
     var piezo = five.Piezo.instances[0]
 
