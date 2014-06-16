@@ -47,3 +47,5 @@ Pin 5   o----------------------         |
 - Piezo - https://github.com/rwaldron/johnny-five/blob/master/docs/piezo.md
 - TMP36 - https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-temperature-tmp36.md
 - Button - https://github.com/rwaldron/johnny-five/wiki/Button#usage
+
+---

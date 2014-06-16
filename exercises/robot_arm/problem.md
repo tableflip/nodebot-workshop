@@ -32,6 +32,7 @@ GND  o---.------/\/\/------.
 ```
 
 ## Components
+
 - Potentiometer - http://node-ardx.org/electronics-primer#pot
 
 > Produces a variable resistance dependant on the angular position of the shaft.
@@ -42,6 +43,7 @@ GND  o---.------/\/\/------.
 - Fn - https://github.com/rwaldron/johnny-five/blob/master/lib/fn.js
 
 ## Hints
+
 - A potentiometer is another use case for the Sensor object...
 - A pot produces input values between 0 and 1023.
 - A servo can typically be moved between 0 and 179 degrees.

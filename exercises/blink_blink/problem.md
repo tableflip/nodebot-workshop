@@ -55,6 +55,7 @@ In all of your solutions you will need to:
 ```
 
 ## Components
+
 - LED - http://node-ardx.org/electronics-primer#led
 
 > Emits light when a small current is passed through it (only in one direction).
