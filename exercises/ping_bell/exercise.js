@@ -52,7 +52,7 @@ exercise.addVerifyProcessor(function (callback) {
 
     var buffer = new Buffer('HAI!?')
 
-    dgram.createSocket('udp4').send(buffer, 0, buffer.length, 1337)
+    dgram.createSocket('udp4').send(buffer, 0, buffer.length, 1337, '127.0.0.1')
 
     // Allow some time for the udp packet to reach server and sound to be played
     setTimeout(function () {
