@@ -36,8 +36,6 @@ exercise.addProcessor(function (mode, callback) {
 
 // add a processor only for 'verify' calls
 exercise.addVerifyProcessor(function (callback) {
-  var result, error
-
   try {
     var io = five.stubs.firmata.singleton
 

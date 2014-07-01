@@ -36,8 +36,6 @@ exercise.addProcessor(function (mode, callback) {
 
 // add a processor only for 'verify' calls
 exercise.addVerifyProcessor(function (callback) {
-  var result, error
-
   function pressBtn () {
     ['down', 'press', 'tap', 'impact', 'hit'].forEach(function (name) {
       btn.emit(name)
