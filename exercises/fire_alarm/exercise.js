@@ -7,6 +7,7 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
+var notifier = require('../../lib/notifier')('Fire alarm')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -42,6 +43,8 @@ const pins = {
 
 // add a processor only for 'verify' calls
 exercise.addVerifyProcessor(function (callback) {
+  var result, error
+
   try {
     var io = five.stubs.firmata.singleton
 
@@ -61,16 +64,15 @@ exercise.addVerifyProcessor(function (callback) {
     expect(analogReadListener, 'No values were read from A0').to.not.be.null
     expect(io.digitalWrite.called, 'Fire alarm went off before a temperature was received!').to.be.false
 
-    testAlarmTurnsOff(analogReadListener, io, function (er) {
-      if (er) return callback(er, false)
+    testAlarmTurnsOff(analogReadListener, io, function (error) {
+      if (error) return notifier(error, callback)
 
-      testAlarmResets(analogReadListener, io, function (er) {
-        if (er) return callback(er, false)
-        callback(null, true)
+      testAlarmResets(analogReadListener, io, function (error) {
+        notifier(error, callback)
       })
     })
-  } catch (e) {
-    callback(e, false)
+  } catch (error) {
+    notifier(error, callback)
   }
 })
 

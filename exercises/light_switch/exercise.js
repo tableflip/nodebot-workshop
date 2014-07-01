@@ -7,6 +7,7 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
+var notifier = require('../../lib/notifier')('Light switch')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -35,6 +36,7 @@ exercise.addProcessor(function (mode, callback) {
 
 // add a processor only for 'verify' calls
 exercise.addVerifyProcessor(function (callback) {
+  var result, error
 
   function pressBtn () {
     ['down', 'press', 'tap', 'impact', 'hit'].forEach(function (name) {
@@ -108,9 +110,9 @@ exercise.addVerifyProcessor(function (callback) {
       expect(led.off.callCount, 'LED did not turn off after fourth button press').to.be.equal(initial.off.callCount + 2)
     }
 
-    callback(null, true)
-  } catch(e) {
-    callback(e, false)
+    notifier(callback)
+  } catch(error) {
+    notifier(error, callback)
   }
 })
 

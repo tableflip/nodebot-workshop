@@ -44,6 +44,9 @@
     "workshopper-exercise": "~0.2.3",
     "workshopper-wrappedexec": "~0.1.1"
   },
+  "optionalDependencies": {
+    "node-notifier": "^3.0"
+  },
   "devDependencies": {
     "gulp-jshint": "^1.6.1",
     "gulp": "^3.6.2",

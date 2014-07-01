@@ -7,6 +7,7 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
+var notifier = require('../../lib/notifier')('Street lamp')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -35,6 +36,8 @@ exercise.addProcessor(function (mode, callback) {
 
 // add a processor only for 'verify' calls
 exercise.addVerifyProcessor(function (callback) {
+  var result, error
+
   try {
     var io = five.stubs.firmata.singleton
 
@@ -92,16 +95,16 @@ exercise.addVerifyProcessor(function (callback) {
               led.on.lastCall.calledAfter(led.off.lastCall),
               'led was not turned on after it was turned off'
             ).to.be.true
-            callback(null, true)
-          } catch (er) {
-            callback(er, false)
+            notifier(callback)
+          } catch (error) {
+            notifier(error, callback)
           }
         }, freq)
       }, freq)
     }, freq)
 
-  } catch (e) {
-    callback(e, false)
+  } catch (error) {
+    notifier(error, callback)
   }
 })
 

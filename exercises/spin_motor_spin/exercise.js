@@ -7,6 +7,7 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
+var notifier = require('../../lib/notifier')('Spin motor spin')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -35,6 +36,8 @@ exercise.addProcessor(function (mode, callback) {
 
 // add a processor only for 'verify' calls
 exercise.addVerifyProcessor(function (callback) {
+  var result, error
+
   try {
     var io = five.stubs.firmata.singleton
 
@@ -72,9 +75,9 @@ exercise.addVerifyProcessor(function (callback) {
     expect(start1.calledAfter(wait1), 'motor didn\'t start again after 1 second')
     expect(start1.args[0], 'motor not started again at 200').to.equal(200)
 
-    callback(null, true)
-  } catch(e) {
-    callback(e, false)
+    notifier(callback)
+  } catch(error) {
+    notifier(error, callback)
   }
 })
 

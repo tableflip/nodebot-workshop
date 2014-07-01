@@ -9,6 +9,7 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
+var notifier = require('../../lib/notifier')('Remote temperature')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -37,6 +38,8 @@ exercise.addProcessor(function (mode, callback) {
 
 // add a processor only for 'verify' calls
 exercise.addVerifyProcessor(function (callback) {
+  var result, error
+
   try {
     var io = five.stubs.firmata.singleton
 
@@ -88,18 +91,17 @@ exercise.addVerifyProcessor(function (callback) {
             })
           }, 1000)
         },
-        function (er) {
-          if (er) return callback(er, false)
-          callback(null, true)
+        function (error) {
+          notifier(error, callback)
         })
     })
 
-    d.on('error', function (er) {
-      callback(er, false)
+    d.on('error', function (error) {
+      notifier(error, callback)
     })
 
-  } catch (e) {
-    callback(e, false)
+  } catch (error) {
+    notifier(error, callback)
   }
 })
 
