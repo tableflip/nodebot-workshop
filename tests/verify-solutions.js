@@ -53,9 +53,11 @@ function testSolution(name) {
   nodebot.getData = function(){
     return name
   }
+
+  var exercise = nodebot.loadExercise(name)
   var solution = path.relative(__dirname, nodebot.dirFromName(name) + '/solution/solution.js')
 
-  nodebot.execute('verify', [solution])
+  nodebot.execute(exercise, 'verify', [solution])
 }
 
 if (process.argv.length > 2){

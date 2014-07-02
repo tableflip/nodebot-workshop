@@ -40,8 +40,8 @@
     "johnny-five": "^0.7.39",
     "proxyquire": "^1.0.0",
     "sinon": "^1.9",
-    "workshopper": "~1.0.0-alpha07",
-    "workshopper-exercise": "~0.2.3",
+    "workshopper": "^1.2.2",
+    "workshopper-exercise": "^1.1.0",
     "workshopper-wrappedexec": "~0.1.1"
   },
   "optionalDependencies": {
@@ -51,7 +51,6 @@
     "gulp-jshint": "^1.6.1",
     "gulp": "^3.6.2",
     "jshint-stylish": "^0.2.0",
-    "through2": "^0.4.2",
     "gulp-shell": "^0.2.5"
   }
 }
