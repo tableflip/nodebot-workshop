@@ -20,5 +20,5 @@ workshopper({
   , appDir      : __dirname
   , helpFile    : fpath('help.txt')
   , menuItems   : []
-  , menu        : {fg: "black", bg: 220}
+  , menu        : {fg: "black", bg: /^win/.test(process.platform) ? "yellow" : 220}
 })
