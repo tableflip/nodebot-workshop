@@ -9,7 +9,8 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
-var notifier = require('../../lib/notifier')('Remote temperature')
+var notifier = require('../../lib/notifier')
+var broadcaster = require('../../lib/broadcaster')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -64,7 +65,10 @@ exercise.addVerifyProcessor(function (callback) {
 
     d.on('remote', function (remote) {
       if (!remote.getTemperature) {
-        return callback(new Error('Remote has no method \'getTemperature\''), false)
+        return broadcaster(exercise)(
+          new Error('Remote has no method \'getTemperature\''),
+          function (er) { notifier(exercise)(er, callback) }
+        )
       }
 
       async.eachSeries(
@@ -90,16 +94,16 @@ exercise.addVerifyProcessor(function (callback) {
           }, 1000)
         },
         function (error) {
-          notifier(error, callback)
+          broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
         })
     })
 
     d.on('error', function (error) {
-      notifier(error, callback)
+      broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
     })
 
   } catch (error) {
-    notifier(error, callback)
+    broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
   }
 })
 

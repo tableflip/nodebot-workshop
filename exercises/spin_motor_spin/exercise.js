@@ -7,7 +7,8 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
-var notifier = require('../../lib/notifier')('Spin motor spin')
+var notifier = require('../../lib/notifier')
+var broadcaster = require('../../lib/broadcaster')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -73,9 +74,9 @@ exercise.addVerifyProcessor(function (callback) {
     expect(start1.calledAfter(wait1), 'motor didn\'t start again after 1 second')
     expect(start1.args[0], 'motor not started again at 200').to.equal(200)
 
-    notifier(callback)
+    broadcaster(exercise)(function (er) { notifier(exercise)(er, callback) })
   } catch(error) {
-    notifier(error, callback)
+    broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
   }
 })
 

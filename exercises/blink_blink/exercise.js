@@ -7,7 +7,8 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
-var notifier = require('../../lib/notifier')('Blink blink')
+var notifier = require('../../lib/notifier')
+var broadcaster = require('../../lib/broadcaster')
 
 
 // checks that the submission file actually exists
@@ -57,9 +58,9 @@ exercise.addVerifyProcessor(function (callback) {
     expect(io.digitalWrite.calledWith(13, io.HIGH)).to.be.true
     expect(io.digitalWrite.calledWith(13, io.LOW)).to.be.true
 
-    notifier(callback)
+    broadcaster(exercise)(function (er) { notifier(exercise)(er, callback) })
   } catch(error) {
-    notifier(error, callback)
+    broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
   }
 })
 

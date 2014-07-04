@@ -7,7 +7,8 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
-var notifier = require('../../lib/notifier')('Servo wave')
+var notifier = require('../../lib/notifier')
+var broadcaster = require('../../lib/broadcaster')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -60,9 +61,9 @@ exercise.addVerifyProcessor(function (callback) {
     expect(stop0.calledBefore(toLast), 'servo did not stop before returning to center').to.be.true
     expect(toLast.args[0], 'servo did not return to center').to.equal(90)
 
-    notifier(callback)
+    broadcaster(exercise)(function (er) { notifier(exercise)(er, callback) })
   } catch(error) {
-    notifier(error, callback)
+    broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
   }
 })
 

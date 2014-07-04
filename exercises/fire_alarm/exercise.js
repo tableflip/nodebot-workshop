@@ -7,7 +7,8 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
-var notifier = require('../../lib/notifier')('Fire alarm')
+var notifier = require('../../lib/notifier')
+var broadcaster = require('../../lib/broadcaster')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -63,14 +64,14 @@ exercise.addVerifyProcessor(function (callback) {
     expect(io.digitalWrite.called, 'Fire alarm went off before a temperature was received!').to.be.false
 
     testAlarmTurnsOff(analogReadListener, io, function (error) {
-      if (error) return notifier(error, callback)
+      if (error) return broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
 
       testAlarmResets(analogReadListener, io, function (error) {
-        notifier(error, callback)
+        broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
       })
     })
   } catch (error) {
-    notifier(error, callback)
+    broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
   }
 })
 

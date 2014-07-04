@@ -7,7 +7,8 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
-var notifier = require('../../lib/notifier')('Street lamp')
+var notifier = require('../../lib/notifier')
+var broadcaster = require('../../lib/broadcaster')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -69,7 +70,7 @@ exercise.addVerifyProcessor(function (callback) {
       try {
         expect(led.on.called, 'led was not turned on when resistor value high').to.be.true
       } catch (er) {
-        callback(er, false)
+        return broadcaster(exercise)(er, function (er) { notifier(exercise)(er, callback) })
       }
 
       analogReadListener(random(0, 600))
@@ -82,7 +83,7 @@ exercise.addVerifyProcessor(function (callback) {
             'led was not turned off after it was turned on'
           ).to.be.true
         } catch (er) {
-          callback(er, false)
+          return broadcaster(exercise)(er, function (er) { notifier(exercise)(er, callback) })
         }
 
         analogReadListener(random(600, 900))
@@ -93,16 +94,16 @@ exercise.addVerifyProcessor(function (callback) {
               led.on.lastCall.calledAfter(led.off.lastCall),
               'led was not turned on after it was turned off'
             ).to.be.true
-            notifier(callback)
+            broadcaster(exercise)(function (er) { notifier(exercise)(er, callback) })
           } catch (error) {
-            notifier(error, callback)
+            broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
           }
         }, freq)
       }, freq)
     }, freq)
 
   } catch (error) {
-    notifier(error, callback)
+    broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
   }
 })
 

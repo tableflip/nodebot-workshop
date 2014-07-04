@@ -8,7 +8,8 @@ var filecheck = require('workshopper-exercise/filecheck')
 var execute = require('workshopper-exercise/execute')
 var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
-var notifier = require('../../lib/notifier')('Robot arm')
+var notifier = require('../../lib/notifier')
+var broadcaster = require('../../lib/broadcaster')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -100,11 +101,11 @@ exercise.addVerifyProcessor(function (callback) {
         }, sensor.freq + 0)
       },
       function (error) {
-        notifier(error, callback)
+        broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
       })
 
   } catch(error) {
-    notifier(error, callback)
+    broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
   }
 })
 
