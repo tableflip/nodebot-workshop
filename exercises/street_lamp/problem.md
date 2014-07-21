@@ -7,13 +7,13 @@ __Build a street lamp that turns on as it gets dark.__
 ## Circuit diagram
 
 ```
-           PhotoR     10K
-    +5 o---/\/\/--.--/\/\/--.--o GND
-                  |         |
- Pin 0 o-----------         |
-                            |
-           LED     330      |
- Pin 9 o--->|-----/\/\/------
+            PhotoR     10K
+     +5 o---/\/\/--.--/\/\/--.--o GND
+                   |         |
+ Pin A0 o-----------         |
+                             |
+            LED     330      |
+ Pin 9  o--->|-----/\/\/------
 ```
 
 ## Components
