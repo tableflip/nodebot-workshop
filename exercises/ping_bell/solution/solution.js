@@ -7,7 +7,7 @@ board.on('ready', function () {
   var server = dgram.createSocket('udp4')
 
   server.on('message', function () {
-    piezo.song('cdfda ag cdfdg gf ', '111111442111111442')
+    piezo.tone(five.Piezo.Notes.c4, 1000)
   })
 
   server.bind(1337)
