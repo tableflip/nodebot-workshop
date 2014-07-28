@@ -48,8 +48,16 @@ exercise.addVerifyProcessor(function (callback) {
     expect(led, 'no led instance created').to.exist
 
     expect(led.pin, 'led expected to be connected to pin 13').to.equal(13)
-    expect(led.strobe.called, 'led.strobe was not called').to.be.true
-    expect(led.strobe.getCall(0).args[0], 'led.strobe was not called with 1000').to.equal(1000)
+    
+    if (!led.strobe.called && !led.blink.called) {
+      expect(led.strobe.called, 'led.strobe was not called').to.be.true
+    }
+
+    if (led.blink.called) {
+      expect(led.blink.getCall(0).args[0], 'led.blink was not called with 1000').to.equal(1000)
+    } else {
+      expect(led.strobe.getCall(0).args[0], 'led.strobe was not called with 1000').to.equal(1000)
+    }
 
     // should have set pin 13 into digital output mode
     expect(io.pinMode.calledWith(13, io.MODES.OUTPUT)).to.be.true
