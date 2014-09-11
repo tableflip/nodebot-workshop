@@ -11,7 +11,7 @@ __Create a UDP server that plays a sound when a message is received.__
             Piezo
               _
             || ||
- Pin 9  o---|| ||---o  GND
+ Pin 8  o---|| ||---o  GND
             ||_||
 ```
 
