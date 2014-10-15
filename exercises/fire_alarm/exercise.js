@@ -1,6 +1,7 @@
 var proxyquire = require('proxyquire')
 var five = require('../../stubs/five')
 var expect = require('chai').expect
+var async = require('async')
 
 var exercise = require('workshopper-exercise')()
 var filecheck = require('workshopper-exercise/filecheck')
@@ -134,129 +135,131 @@ function testAlarmResets (analogReadListener, io, cb) {
 
   analogReadListener(random(tempToVoltage(50.1), tempToVoltage(100)))
 
-  // Within 2 seconds, the piezo should have sounded and the LED turned on
-  setTimeout(function () {
-    try {
-      expect(io.digitalWrite.calledWith(pins.piezo, io.HIGH), 'Piezo was not turned on when fire started').to.be.true
-      expect(io.digitalWrite.calledWith(pins.led, io.HIGH), 'LED was not turned on when fire started').to.be.true
-    } catch (er) {
-      return cb(er)
-    }
+  var lastLedLowCall, lastLedHighCall, digitalReadListener
 
-    // Get the digital read listener for the button
-    var digitalReadListener = null
-
-    for (var i = 0; i < io.digitalRead.callCount; i++) {
-      var call = io.digitalRead.getCall(i)
-      if (call.args[0] === pins.btn) {
-        digitalReadListener = call.args[1]
-        break
+  var tests = [
+    function(callback) {
+      try {
+        expect(io.digitalWrite.calledWith(pins.piezo, io.HIGH), 'Piezo was not turned on when fire started').to.be.true
+        expect(io.digitalWrite.calledWith(pins.led, io.HIGH), 'LED was not turned on when fire started').to.be.true
+      } catch (er) {
+        return callback(er)
       }
-    }
 
-    // Push the button
-    digitalReadListener(1)
+      // Get the digital read listener for the button
+      for (var i = 0; i < io.digitalRead.callCount; i++) {
+        var call = io.digitalRead.getCall(i)
+        if (call.args[0] === pins.btn) {
+          digitalReadListener = call.args[1]
+          break
+        }
+      }
 
-    // Buttons have a 7ms debounce
-    setTimeout(function () {
+      // Push the button
+      digitalReadListener(1)
+
+      // Buttons have a 7ms debounce
+      setTimeout(callback, 100)
+    },
+    function(callback) {
+      // release the button
       digitalReadListener(0)
 
-      // Within 2 seconds the last call to digitalWrite should have been with io.LOW
-      setTimeout(function () {
-        try {
-          expect(
-            io.digitalWrite.calledWith(pins.piezo, io.LOW),
-            'Piezo was not turned off when reset button pressed'
-          ).to.be.true
+      setTimeout(callback, 100)
+    },
+    function(callback) {
+      try {
+        expect(
+          io.digitalWrite.calledWith(pins.piezo, io.LOW),
+          'Piezo was not turned off when reset button pressed'
+        ).to.be.true
 
-          expect(
-            io.digitalWrite.calledWith(pins.led, io.LOW),
-            'LED was not turned off when reset button pressed'
-          ).to.be.true
-        } catch (er) {
-          return cb(er)
-        }
+        expect(
+          io.digitalWrite.calledWith(pins.led, io.LOW),
+          'LED was not turned off when reset button pressed'
+        ).to.be.true
+      } catch (er) {
+        return callback(er)
+      }
 
-        //var lastPiezoLowCall = lastCallWith(io.digitalWrite, pins.piezo, io.LOW)
-        var lastLedLowCall = lastCallWith(io.digitalWrite, pins.led, io.LOW)
+      //var lastPiezoLowCall = lastCallWith(io.digitalWrite, pins.piezo, io.LOW)
+      lastLedLowCall = lastCallWith(io.digitalWrite, pins.led, io.LOW)
 
-        // After 2 more seconds the last piezo/led low call should still have been before the last piezo/led high call
-        setTimeout(function () {
-          //var lastPiezoHighCall = lastCallWith(io.digitalWrite, pins.piezo, io.HIGH)
-          var lastLedHighCall = lastCallWith(io.digitalWrite, pins.led, io.HIGH)
+      // After 2 more seconds the last piezo/led low call should still have been before the last piezo/led high call
+      setTimeout(callback, 2000)
+    },
+    function(callback) {
+      //var lastPiezoHighCall = lastCallWith(io.digitalWrite, pins.piezo, io.HIGH)
+      lastLedHighCall = lastCallWith(io.digitalWrite, pins.led, io.HIGH)
 
-          try {
-            // TODO: We can't currently test this as there is no way to stop a piezo from playing a tune
-            /*expect(
-              lastPiezoLowCall.calledAfter(lastPiezoHighCall),
-              'Piezo was not turned off after it was turned on and reset button pressed'
-            ).to.be.true*/
+      try {
+        // TODO: We can't currently test this as there is no way to stop a piezo from playing a tune
+        /*expect(
+          lastPiezoLowCall.calledAfter(lastPiezoHighCall),
+          'Piezo was not turned off after it was turned on and reset button pressed'
+        ).to.be.true*/
 
-            expect(
-              lastLedLowCall.calledAfter(lastLedHighCall),
-              'LED was not turned off after it was turned on and reset button pressed'
-            ).to.be.true
-          } catch (er) {
-            return cb(er)
-          }
+        expect(
+          lastLedLowCall.calledAfter(lastLedHighCall),
+          'LED was not turned off after it was turned on and reset button pressed'
+        ).to.be.true
+      } catch (er) {
+        return callback(er)
+      }
 
-          io.digitalWrite.reset()
+      io.digitalWrite.reset()
 
-          // When a new fire temperature is received, the alarm shouldn't turn on
-          analogReadListener(random(tempToVoltage(50.1), tempToVoltage(100)))
+      // When a new fire temperature is received, the alarm shouldn't turn on
+      analogReadListener(random(tempToVoltage(50.1), tempToVoltage(100)))
 
-          setTimeout(function () {
-            try {
-              expect(
-                io.digitalWrite.calledWith(pins.piezo, io.HIGH),
-                'Piezo turned back on after reset button pressed before temperature dropped below 50'
-              ).to.be.false
+      setTimeout(callback, 2000)
+    },
+    function(callback) {
+      try {
+        expect(
+          io.digitalWrite.calledWith(pins.piezo, io.HIGH),
+          'Piezo turned back on after reset button pressed before temperature dropped below 50'
+        ).to.be.false
 
-              expect(io.digitalWrite.calledWith(pins.led, io.HIGH),
-                'LED turned back on after reset button pressed before temperature dropped below 50'
-              ).to.be.false
-            } catch (er) {
-              return cb(er)
-            }
+        expect(io.digitalWrite.calledWith(pins.led, io.HIGH),
+          'LED turned back on after reset button pressed before temperature dropped below 50'
+        ).to.be.false
+      } catch (er) {
+        return callback(er)
+      }
 
-            // When the temp drops below 50 and then above 50, the alarm should turn on
-            analogReadListener(random(tempToVoltage(0), tempToVoltage(50)))
+      // When the temp drops below 50 and then above 50, the alarm should turn on
+      analogReadListener(random(tempToVoltage(0), tempToVoltage(50)))
 
-            setTimeout(function () {
-              analogReadListener(random(tempToVoltage(50.1), tempToVoltage(100)))
+      setTimeout(callback, 2000)
+    },
+    function(callback) {
+      analogReadListener(random(tempToVoltage(50.1), tempToVoltage(100)))
 
-              setTimeout(function () {
-                try {
-                  expect(
-                    io.digitalWrite.calledWith(pins.piezo, io.HIGH),
-                    'Piezo was not turned on when fire started after reset button was pressed'
-                  ).to.be.true
+      setTimeout(callback, 2000)
+    },
+    function(callback) {
+      try {
+        expect(
+          io.digitalWrite.calledWith(pins.piezo, io.HIGH),
+          'Piezo was not turned on when fire started after reset button was pressed'
+        ).to.be.true
 
-                  expect(
-                    io.digitalWrite.calledWith(pins.led, io.HIGH),
-                    'LED was not turned on when fire started after reset button was pressed'
-                  ).to.be.true
+        expect(
+          io.digitalWrite.calledWith(pins.led, io.HIGH),
+          'LED was not turned on when fire started after reset button was pressed'
+        ).to.be.true
 
-                  // Reset
-                  analogReadListener(random(tempToVoltage(0), tempToVoltage(50)))
-                  setTimeout(cb, 2000)
+        // Reset
+        analogReadListener(random(tempToVoltage(0), tempToVoltage(50)))
+      } catch (er) {
+        return callback(er)
+      }
 
-                } catch (er) {
-                  return cb(er)
-                }
-              }, 2000)
+      setTimeout(callback, 2000)
+    }]
 
-            }, 2000)
-
-          }, 2000)
-
-        }, 2000)
-
-      }, 2000)
-
-    }, 10)
-
-  }, 2000)
+    setTimeout(async.series.bind(null, tests, cb), 2000)
 }
 
 function lastCallWith (spy/*, arg0, arg1...*/) {

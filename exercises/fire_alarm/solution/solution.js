@@ -19,9 +19,9 @@ board.on('ready', function () {
     isOnFire = true
 
     led.strobe(1000)
-    piezo.tone(five.Piezo.Notes.c, 750)
+    piezo.tone(five.Piezo.Notes.c4, 750)
     sirenInterval = setInterval(function () {
-      piezo.tone(five.Piezo.Notes.c, 750)
+      piezo.tone(five.Piezo.Notes.c4, 750)
     }, 1000)
   }
 
