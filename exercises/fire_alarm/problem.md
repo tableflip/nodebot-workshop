@@ -11,8 +11,8 @@ __Build a "fire alarm" that sounds when the air temperature is more than 50°C._
 ## Circuit diagram
 
 ```
-                 LED         330
-Pin 13  o-------->|---------/\/\/--------
+                  330        LED
+Pin 13  o--------/\/\/-------->|---------
                                         |
 Pin 5   o----------------------         |
                               |         |

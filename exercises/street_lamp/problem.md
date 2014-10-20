@@ -12,8 +12,8 @@ __Build a street lamp that turns on as it gets dark.__
                    |         |
  Pin A0 o-----------         |
                              |
-            LED     330      |
-  Pin 9 o--->|-----/\/\/------
+            330     LED      |
+  Pin 9 o--/\/\/----->|-------
 ```
 
 ## Components

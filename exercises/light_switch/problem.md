@@ -6,8 +6,8 @@ __Write a program that acts like a light switch to turn an LED on and off.__
 ## Circuit diagram
 
 ```
-           LED       330
-Pin 9  o--->|-------/\/\/-----
+            330      LED
+Pin 9  o---/\/\/------>|------
                              |
 Pin 5  o------------         |
                    |         |
