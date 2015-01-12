@@ -3,24 +3,14 @@ var five = require('../../stubs/five')
 var async = require('async')
 var dnode = require('dnode')
 var expect = require('chai').expect
-
 var exercise = require('workshopper-exercise')()
 var filecheck = require('workshopper-exercise/filecheck')
-var execute = require('workshopper-exercise/execute')
-var wrappedexec = require('workshopper-wrappedexec')
 var path = require('path')
 var notifier = require('../../lib/notifier')
 var broadcaster = require('../../lib/broadcaster')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
-
-// execute the solution and submission in parallel with spawn()
-exercise = execute(exercise)
-
-// wrap up the child process in a phantom wrapper that can
-// mess with the global environment and inspect execution
-exercise = wrappedexec(exercise)
 
 // this actually runs the solution
 exercise.addProcessor(function (mode, callback) {
