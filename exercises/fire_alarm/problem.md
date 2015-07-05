@@ -45,7 +45,7 @@ Pin 5   o----------------------         |
 
 - LED - https://github.com/rwaldron/johnny-five/wiki/Led
 - Piezo - https://github.com/rwaldron/johnny-five/blob/master/docs/piezo.md
-- TMP36 - https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-temperature-tmp36.md
+- TMP36 - https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md
 - Button - https://github.com/rwaldron/johnny-five/wiki/Button#usage
 
 ---
