@@ -40,7 +40,7 @@ GND  o-----'
 
 ## Docs
 
-- https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-temperature-tmp36.md
+- https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md
 - dnode - https://github.com/substack/dnode
 
 ---
