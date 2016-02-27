@@ -11,7 +11,7 @@ npm install -g nodebot-workshop
 nodebot-workshop
 ```
 
-![Nodebot workshop menu](https://raw.githubusercontent.com/tableflip/nodebot-workshop/master/screenshot.png)
+<img src="https://raw.githubusercontent.com/tableflip/nodebot-workshop/master/screenshot.png" width="560" alt="Nodebot workshop menu">
 
 Learn the basics of the [johnny-five][2] api, as a series of code challenges.
 
