@@ -18,6 +18,10 @@ five.stubs = stubs;
 function createSpy (Constructor) {
   // Wrap methods with spies and store instances
   function SpyConstructor (opts) {
+    if (!(this instanceof SpyConstructor)) {
+      return new SpyConstructor(opts);
+    }
+
     Constructor.call(this, opts);
 
     // Spy on Constructor functions
