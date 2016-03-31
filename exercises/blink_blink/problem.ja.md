@@ -1,4 +1,4 @@
-# ようこそ nodebot-workshop
+# ようこそ nodebot-workshop へ
 
 このワークショップでは`johnny-five`のAPIを学んでいきます。
 
