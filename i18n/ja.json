@@ -1,8 +1,8 @@
 {
-  "title": "NodeBotsを楽しもう。",
+  "title": "JavaScriptでのハードウェア制御を楽しもう！",
   "exercise": {
     "Blink Blink": "Lチカ",
-    "BABY STEPS": "ベイビーステップ",
+    "Servo Wave": "サーボウェーブ",
     "MY FIRST I/O!": "初めてのI/O！",
     "MY FIRST ASYNC I/O!": "初めての非同期I/O！",
     "FILTERED LS": "LSのフィルター",
