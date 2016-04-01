@@ -3,7 +3,7 @@
   "exercise": {
     "Blink Blink": "Lチカ",
     "Servo Wave": "サーボウェーブ",
-    "MY FIRST I/O!": "初めてのI/O！",
+    "Spin Motor Spin": "くるくるモーター回転",
     "MY FIRST ASYNC I/O!": "初めての非同期I/O！",
     "FILTERED LS": "LSのフィルター",
     "MAKE IT MODULAR": "モジュラーにしましょう",
