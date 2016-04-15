@@ -1,5 +1,4 @@
-3秒サーボを動かして、止めて、真ん中に戻しましょう。
-__Make a servo wave at you for 3 seconds, stop, and return to center.__
+__3秒サーボを動かして、止めて、真ん中に戻しましょう。__
 
 - 9pinに接続した`Servo`インスタンスを作成します
 - `servo.sweep`を使い0˚から180˚に回転させます
