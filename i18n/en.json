@@ -1,0 +1,21 @@
+{
+  "title": "NodeBot Workshop",
+  "exercise": {
+    "blink_blink": "Blink Blink",
+    "servo_wave": "Servo Wave",
+    "spin_motor_spin": "Spin Motor Spin",
+    "light_switch": "Light Switch",
+    "street_lamp": "Street Lamp",
+    "ping_bell": "Ping Bell",
+    "robot_arm": "Robot Arm",
+    "remote_temperature": "Remote Temperature",
+    "fire_alarm": "Fire Alarm"
+  },
+  "common": {
+    "exercise": {
+      "pass": {},
+      "fail": {}
+    }
+  },
+  "exercises": {}
+}

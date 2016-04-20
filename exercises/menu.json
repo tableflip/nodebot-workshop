@@ -1,11 +1,11 @@
 [
-  "Blink Blink",
-  "Servo Wave",
-  "Spin Motor Spin",
-  "Light Switch",
-  "Street Lamp",
-  "Ping Bell",
-  "Robot Arm",
-  "Remote Temperature",
-  "Fire Alarm"
+  "blink_blink",
+  "servo_wave",
+  "spin_motor_spin",
+  "light_switch",
+  "street_lamp",
+  "ping_bell",
+  "robot_arm",
+  "remote_temperature",
+  "fire_alarm"
 ]
