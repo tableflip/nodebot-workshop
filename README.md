@@ -1,6 +1,6 @@
-Nodebot Workshop [![Build Status](https://travis-ci.org/tableflip/nodebot-workshop.svg?branch=master)](https://travis-ci.org/tableflip/nodebot-workshop) [![Dependency Status](https://david-dm.org/tableflip/nodebot-workshop.svg)](https://david-dm.org/tableflip/nodebot-workshop)
-================
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/tableflip/nodebot-workshop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Nodebot Workshop
+
+[![Build Status](https://travis-ci.org/tableflip/nodebot-workshop.svg?branch=master)](https://travis-ci.org/tableflip/nodebot-workshop) [![Dependency Status](https://david-dm.org/tableflip/nodebot-workshop.svg)](https://david-dm.org/tableflip/nodebot-workshop) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/tableflip/nodebot-workshop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 **A [nodeschool][1] workshop on how to get your Arduino alive with [rwaldron/johnny-five][2]**
 
@@ -49,6 +49,11 @@ gulp
 - @rwaldron and the [johnny-five team](https://github.com/rwaldron/johnny-five/graphs/contributors)
 - @voodootikigod and the [nodebots team](http://nodebots.io/core.html)
 - @AnnaGerber of [node-ardx.org](http://node-ardx.org/)
+
+## Translations
+
+- @NodeBotsUK - English
+- @n0bisuke - Japanese
 
 [1]: http://nodeschool.io/
 [2]: https://github.com/rwaldron/johnny-five
