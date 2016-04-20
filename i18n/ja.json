@@ -1,0 +1,21 @@
+{
+  "title": "JavaScriptでのハードウェア制御を楽しもう！",
+  "exercise": {
+    "Blink Blink": "Lチカ",
+    "Servo Wave": "サーボウェーブ",
+    "Spin Motor Spin": "くるくるモーター回転",
+    "Light Switch": "ライトスイッチ",
+    "Street Lamp": "ストリートランプ",
+    "Ping Bell": "ピング ベル",
+    "Robot Arm": "ロボットアーム",
+    "Remote Temperature": "遠隔地の温度",
+    "Fire Alarm": "火災報知器"
+  },
+  "common": {
+    "exercise": {
+      "pass": {},
+      "fail": {}
+    }
+  },
+  "exercises": {}
+}

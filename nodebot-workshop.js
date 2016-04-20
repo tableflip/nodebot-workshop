@@ -16,6 +16,7 @@ workshopper({
   , subtitle    : subtitle
   , exerciseDir : fpath('./exercises/')
   , appDir      : __dirname
+  , languages   : ['en', 'ja']
   , helpFile    : fpath('help.txt')
   , menuItems   : []
   , menu        : {fg: 'black', bg: /^win/.test(process.platform) ? 'yellow' : 220}
