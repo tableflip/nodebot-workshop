@@ -87,10 +87,5 @@ function nameFromPath(path){
   var regex = /exercises\/(\w+)\/solution\/solution\.js/
   var res = path.match(regex)
   if(!res) throw new Error('Cannot establish exercise from path: ' + path)
-  return toExerciseName(res[1])
-}
-
-// ping_pell -> Ping Bell
-function toExerciseName (str) {
-  return str.split('_').map(function(str){ return str.charAt(0).toUpperCase() + str.slice(1)}).join(' ')
+  return res[1]
 }
