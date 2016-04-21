@@ -20,27 +20,13 @@ const workshopper = require('workshopper-adventure')
   , path        = require('path')
   , fs          = require('fs')
   , menu        = require('../exercises/menu')
-  , name        = 'nodebot-workshop'
-  , title       = 'Nodebot Workshop'
-  , subtitle    = '\x1b[23mSelect an exercise and hit \x1b[3mEnter\x1b[23m to begin'
-
-function fpath (f) {
-  return path.join(__dirname, f)
-}
 
 workshopper.prototype.printMenu = function () {
   // snap it off
 }
 
 var nodebot = workshopper({
-  name        : name
-  , title       : title
-  , subtitle    : subtitle
-  , exerciseDir : fpath('../exercises/')
-  , appDir      : __dirname + '/..'
-  , helpFile    : fpath('help.txt')
-  , menuItems   : []
-  , menu        : {fg: "black", bg: 220}
+    appDir      : __dirname + '/..'
   , menuFactory: {
       options: {},
       create: function () {
@@ -60,9 +46,10 @@ function testSolution(name) {
     return name
   }
 
-  var exercise = nodebot.loadExercise(name)
+  nodebot.loadExercise(name)
 
-  var solution = path.relative(__dirname, path.join(__dirname, '..', 'exercises', workshopperUtils.dirFromName(name), 'solution', 'solution.js'))
+  var solution = path.relative(__dirname,
+    path.join(__dirname, '..', 'exercises', workshopperUtils.dirFromName(name), 'solution', 'solution.js'))
 
   nodebot.execute(['select', name])
   nodebot.execute(['verify', solution])

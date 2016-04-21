@@ -5,7 +5,8 @@
   "main": "nodebot-workshop.js",
   "scripts": {
     "start": "./nodebot-workshop.js",
-    "test": "gulp"
+    "test": "gulp",
+    "lint": "jshint exercises tests stubs *.js"
   },
   "bin": {
     "nodebot-workshop": "./nodebot-workshop.js"
@@ -51,6 +52,10 @@
     "gulp-jshint": "^2.0.0",
     "gulp-shell": "^0.5.1",
     "jshint": "^2.8.0",
-    "jshint-stylish": "^2.1.0"
-  }
+    "jshint-stylish": "^2.1.0",
+    "pre-commit": "^1.1.2"
+  },
+  "pre-commit": [
+    "lint", "test"
+  ]
 }

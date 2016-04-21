@@ -1,16 +1,15 @@
 var sinon = require('sinon'),
-  EventEmitter = require('events').EventEmitter,
   util = require('util'),
   IOBoard = require('ioboard');
 
 // an IO plugin for Johnny-Five that looks like an Arduino UNO
 // https://github.com/rwaldron/johnny-five/wiki/IO-Plugins
-IO = function(path, callback) {
+var IO = function(path, callback) {
   IOBoard.call(this, {quiet: true});
 
   // pretend we've connected to firmata
   setTimeout(function() {
-    this.emit("connected");
+    this.emit('connected');
 
     // would now query the board's capabilities
     setTimeout(function() {
@@ -51,7 +50,7 @@ IO = function(path, callback) {
         });
       }
 
-      this.emit("ready");
+      this.emit('ready');
 
       callback();
     }.bind(this), 200);
@@ -62,7 +61,7 @@ util.inherits(IO, IOBoard);
 module.exports = {
   Board: function(port, callback) {
     if(module.exports.singleton) {
-      throw new Error("Board already created");
+      throw new Error('Board already created');
     }
 
     var singleton = new IO(port, callback);

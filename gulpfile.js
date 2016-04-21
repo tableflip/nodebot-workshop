@@ -23,6 +23,7 @@ gulp.task('verify-solutions', function() {
         {cwd: __dirname + '/tests'}))
 
     .on('error', function (err) {
+      console.error(err)
       process.exit(-1)
     })
 })
