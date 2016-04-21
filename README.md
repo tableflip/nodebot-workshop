@@ -45,11 +45,11 @@ $ npm run test
 $ npm run lint
 ```
 
-`pre-commit` hooks are installed in the repo to run the test/lint scripts with every commit.
+A `pre-commit` hook will be installed in your repo clone to run the test/lint scripts with every commit.
 
 ## Thanks
 
-- @rvagg - and the [nodeschool.io][1] team. This workshopper is based on the new 1.0 release of [rvagg/learnyounode](https://github.com/rvagg/learnyounode). It's ace, go try it https://github.com/rvagg/learnyounode
+- @rvagg - and the [nodeschool.io][1] team
 - @rwaldron and the [johnny-five team](https://github.com/rwaldron/johnny-five/graphs/contributors)
 - @voodootikigod and the [nodebots team](http://nodebots.io/core.html)
 - @AnnaGerber of [node-ardx.org](http://node-ardx.org/)
