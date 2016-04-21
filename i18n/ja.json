@@ -1,5 +1,5 @@
 {
-  "title": "JavaScriptでのハードウェア制御を楽しもう！",
+  "subtitle": "JavaScriptでのハードウェア制御を楽しもう！",
   "exercise": {
     "blink_blink": "Lチカ",
     "servo_wave": "サーボウェーブ",
@@ -10,12 +10,5 @@
     "robot_arm": "ロボットアーム",
     "remote_temperature": "遠隔地の温度",
     "fire_alarm": "火災報知器"
-  },
-  "common": {
-    "exercise": {
-      "pass": {},
-      "fail": {}
-    }
-  },
-  "exercises": {}
+  }
 }

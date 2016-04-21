@@ -40,7 +40,7 @@
     "johnny-five": "^0.9.11",
     "proxyquire": "^1.0.0",
     "sinon": "^1.9",
-    "workshopper": "^2.7.0",
+    "workshopper-adventure": "^4.4.6",
     "workshopper-exercise": "^2.5.3"
   },
   "optionalDependencies": {

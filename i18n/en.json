@@ -1,5 +1,6 @@
 {
   "title": "NodeBot Workshop",
+  "subtitle": "Make your Ardunio alive with Johnny-Five",
   "exercise": {
     "blink_blink": "Blink Blink",
     "servo_wave": "Servo Wave",
@@ -10,12 +11,5 @@
     "robot_arm": "Robot Arm",
     "remote_temperature": "Remote Temperature",
     "fire_alarm": "Fire Alarm"
-  },
-  "common": {
-    "exercise": {
-      "pass": {},
-      "fail": {}
-    }
-  },
-  "exercises": {}
+  }
 }

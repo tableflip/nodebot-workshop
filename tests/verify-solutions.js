@@ -13,7 +13,8 @@
  * Test all the exercises defined in `menu.json` have valid solutions. Run them in series, in a child process.
  *
  */
-const workshopper = require('workshopper')
+const workshopper = require('workshopper-adventure')
+  , workshopperUtils = require('workshopper-adventure/util')
   , spawn       = require('child_process').spawn
   , async       = require('async')
   , path        = require('path')
@@ -40,7 +41,14 @@ var nodebot = workshopper({
   , helpFile    : fpath('help.txt')
   , menuItems   : []
   , menu        : {fg: "black", bg: 220}
+  , menuFactory: {
+      options: {},
+      create: function () {
+        return true
+      }
+    }
 })
+nodebot.addAll(require('../exercises/menu.json'))
 
 function testSolution(name) {
 
@@ -48,16 +56,16 @@ function testSolution(name) {
     name = nameFromPath(name)
   }
 
-  console.log(nodebot.dirFromName(name))
-
   nodebot.getData = function(){
     return name
   }
 
   var exercise = nodebot.loadExercise(name)
-  var solution = path.relative(__dirname, nodebot.dirFromName(name) + '/solution/solution.js')
 
-  nodebot.execute(exercise, 'verify', [solution])
+  var solution = path.relative(__dirname, path.join(__dirname, '..', 'exercises', workshopperUtils.dirFromName(name), 'solution', 'solution.js'))
+
+  nodebot.execute(['select', name])
+  nodebot.execute(['verify', solution])
 }
 
 if (process.argv.length > 2){
