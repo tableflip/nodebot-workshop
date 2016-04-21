@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/tableflip/nodebot-workshop.svg?branch=master)](https://travis-ci.org/tableflip/nodebot-workshop) [![Dependency Status](https://david-dm.org/tableflip/nodebot-workshop.svg)](https://david-dm.org/tableflip/nodebot-workshop) [![Gitter](https://badges.gitter.im/join_chat.svg)](https://gitter.im/tableflip/nodebot-workshop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+<img src="http://nodebots.io/img/nodebot.png" width="175">
+
 A [nodeschool][1] workshop that will make your Arduino alive with [rwaldron/johnny-five][2]
 
 No hardware required!
@@ -62,5 +64,3 @@ A `pre-commit` hook will be installed in your repo clone to run the test/lint sc
 [2]: https://github.com/rwaldron/johnny-five
 
 Brought to you by [@NodeBotsUK](https://twitter.com/NodeBotsUK)
-
-<img src="http://nodebots.io/img/nodebot.png" width="175">
