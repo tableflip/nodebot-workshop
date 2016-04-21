@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/tableflip/nodebot-workshop.svg?branch=master)](https://travis-ci.org/tableflip/nodebot-workshop) [![Dependency Status](https://david-dm.org/tableflip/nodebot-workshop.svg)](https://david-dm.org/tableflip/nodebot-workshop) [![Gitter](https://badges.gitter.im/join_chat.svg)](https://gitter.im/tableflip/nodebot-workshop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-**A [nodeschool][1] workshop on how to get your Arduino alive with [rwaldron/johnny-five][2]**
+A [nodeschool][1] workshop that will make your Arduino alive with [rwaldron/johnny-five][2]
+
+No hardware required!
 
 ```shell
 # Install
@@ -13,11 +15,9 @@ nodebot-workshop
 
 <img src="https://raw.githubusercontent.com/tableflip/nodebot-workshop/master/screenshot.png" width="560" alt="Nodebot workshop menu">
 
-Learn the basics of the [johnny-five][2] api, as a series of code challenges.
+A series of code challenges will teach you the basics of the [johnny-five][2] api, a framework for working with Arduino and other rapid prototyping boards.
 
-[johnny-five][2] is an api for working with Arduino and other rapid prototyping boards.
-
-**You _don't_ need an Arduino for this workshop.**
+## Hardware is optional
 
 The workshop will pose a challenge, and will test your code.
 
