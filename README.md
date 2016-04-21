@@ -29,19 +29,23 @@ When run through the workshop the low level code to talk to the Arduino is stubb
 
 Wire up an Arduino, connect the USB and run your solution directly to see it run for real.
 
-## Code style
+## Contributing
+
+### Code style
 
 To move towards a consistent style for nodeschool projects we use the .jshintrc
 as defined in learnyounode: https://github.com/rvagg/learnyounode/blob/master/.jshintrc
 
-Your favourite jshint runner will work but a gulpfile is provided for hipsters.
+### Building
 
-```shell
-npm install -g gulp
-gulp
+npm scripts are present for testing and linting:
+
+```
+$ npm run test
+$ npm run lint
 ```
 
-...to run it.
+`pre-commit` hooks are installed in the repo to run the test/lint scripts with every commit.
 
 ## Thanks
 
