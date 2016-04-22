@@ -24,6 +24,10 @@ exercise.addProcessor(function (mode, callback) {
   }, 2000)
 })
 
+var pins = {
+  piezo: 8
+}
+
 // add a processor only for 'verify' calls
 exercise.addVerifyProcessor(verifyProcessor(exercise, function (test, done) {
   var io = five.stubs.firmata.singleton
@@ -33,7 +37,7 @@ exercise.addVerifyProcessor(verifyProcessor(exercise, function (test, done) {
   var piezo = five.Piezo.instances[0]
 
   test.truthy(piezo, 'create_speaker_instance')
-  test.equals(piezo.pin, 8, 'connect_speaker_to_pin', {pin: 8})
+  test.equals(piezo.pin, pins.piezo, 'connect_speaker_to_pin', {pin: pins.piezo})
 
   var initial = {
     tone: {callCount: piezo.tone.callCount}
