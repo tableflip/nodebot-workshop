@@ -1,11 +1,9 @@
 var proxyquire = require('proxyquire')
 var five = require('../../stubs/five')
-var expect = require('chai').expect
 var exercise = require('workshopper-exercise')()
 var filecheck = require('workshopper-exercise/filecheck')
 var path = require('path')
-var notifier = require('../../lib/notifier')
-var broadcaster = require('../../lib/broadcaster')
+var verifyProcessor = require('../../lib/verify-processor')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -16,7 +14,7 @@ exercise.addProcessor(function (mode, callback) {
   proxyquire(path.join(process.cwd(), exercise.args[0]), {'johnny-five': five.spyOn('Led', 'Sensor')})
 
   setTimeout(function() {
-    console.log('Please wait while your solution is tested...')
+    console.log(exercise.__('please_wait'))
   }, 1000)
 
   // need a better way of detecting when we are done..
@@ -25,77 +23,73 @@ exercise.addProcessor(function (mode, callback) {
   }, 2000)
 })
 
+var pins = {
+  led: 9
+}
+
 // add a processor only for 'verify' calls
-exercise.addVerifyProcessor(function (callback) {
-  try {
-    var io = five.stubs.firmata.singleton
+exercise.addVerifyProcessor(verifyProcessor(exercise, function (test, done) {
+  var io = five.stubs.firmata.singleton
 
-    expect(io, 'no board instance created').to.exist
+  test.truthy(io, 'create_board_instance')
 
-    // Get the listener that is listening for reads on pin A0
-    var analogReadListener = null
+  // Get the listener that is listening for reads on pin A0
+  var analogReadListener = null
 
-    for (var i = 0; i < io.analogRead.callCount; i++) {
-      var call = io.analogRead.getCall(i)
-      if (call.args[0] === 0) {
-        analogReadListener = call.args[1]
-        break
-      }
+  for (var i = 0; i < io.analogRead.callCount; i++) {
+    var call = io.analogRead.getCall(i)
+    if (call.args[0] === 0) {
+      analogReadListener = call.args[1]
+      break
+    }
+  }
+
+  test.truthy(analogReadListener, 'read_analogue_values', {pin: 'A0'})
+
+  var led = five.Led.instances[0]
+  var sensor = five.Sensor.instances[0]
+
+  test.truthy(led, 'create_led_instance')
+  test.equals(led.pin, pins.led, 'connect_led_to_pin', {pin: pins.led})
+
+  test.truthy(sensor, 'create_sensor_instance')
+
+  // User may have set a high value for analog noise filtering
+  var freq = sensor ? sensor.freq : 100
+
+  analogReadListener(random(600, 900))
+
+  setTimeout(function () {
+    try {
+      test.truthy(led.on.called, 'led_turned_on_when_resistor_value_high')
+    } catch (error) {
+      return done(error)
     }
 
-    expect(analogReadListener, 'No values were read from A0').to.not.be.null
-
-    var led = five.Led.instances[0]
-    var sensor = five.Sensor.instances[0]
-
-    expect(led, 'no led instance created').to.exist
-    expect(led.pin, 'led expected to be connected to pin 9').to.equal(9)
-
-    // User may have set a high value for analog noise filtering
-    var freq = sensor ? sensor.freq : 100
-
-    analogReadListener(random(600, 900))
+    analogReadListener(random(0, 600))
 
     setTimeout(function () {
       try {
-        expect(led.on.called, 'led was not turned on when resistor value high').to.be.true
-      } catch (er) {
-        return broadcaster(exercise)(er, function (er) { notifier(exercise)(er, callback) })
+        test.truthy(led.off.called, 'led_turned_off_when_resistor_value_low')
+        test.truthy(led.off.lastCall.calledAfter(led.on.lastCall), 'led_turned_off_after_turned_on')
+      } catch (error) {
+        return done(error)
       }
 
-      analogReadListener(random(0, 600))
+      analogReadListener(random(600, 900))
 
       setTimeout(function () {
         try {
-          expect(led.off.called, 'led was not turned off when resistor value low').to.be.true
-          expect(
-            led.off.lastCall.calledAfter(led.on.lastCall),
-            'led was not turned off after it was turned on'
-          ).to.be.true
-        } catch (er) {
-          return broadcaster(exercise)(er, function (er) { notifier(exercise)(er, callback) })
+          test.truthy(led.on.lastCall.calledAfter(led.off.lastCall), 'led_turned_on_after_turned_off')
+
+          done()
+        } catch (error) {
+          return done(error)
         }
-
-        analogReadListener(random(600, 900))
-
-        setTimeout(function () {
-          try {
-            expect(
-              led.on.lastCall.calledAfter(led.off.lastCall),
-              'led was not turned on after it was turned off'
-            ).to.be.true
-            broadcaster(exercise)(function (er) { notifier(exercise)(er, callback) })
-          } catch (error) {
-            broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
-          }
-        }, freq)
       }, freq)
     }, freq)
-
-  } catch (error) {
-    broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
-  }
-})
+  }, freq)
+}))
 
 function random (min, max) {
   return Math.random() * (max - min + 1) + min

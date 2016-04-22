@@ -1,12 +1,10 @@
 var proxyquire = require('proxyquire')
 var five = require('../../stubs/five')
-var expect = require('chai').expect
 var async = require('async')
 var exercise = require('workshopper-exercise')()
 var filecheck = require('workshopper-exercise/filecheck')
 var path = require('path')
-var notifier = require('../../lib/notifier')
-var broadcaster = require('../../lib/broadcaster')
+var verifyProcessor = require('../../lib/verify-processor')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -17,7 +15,7 @@ exercise.addProcessor(function (mode, callback) {
   proxyquire(path.join(process.cwd(), exercise.args[0]), {'johnny-five': five})
 
   setTimeout(function() {
-    console.log('Please wait while your solution is tested...')
+    console.log(exercise.__('please_wait'))
   }, 1000)
 
   // need a better way of detecting when we are done..
@@ -34,46 +32,63 @@ const pins = {
 }
 
 // add a processor only for 'verify' calls
-exercise.addVerifyProcessor(function (callback) {
-  try {
-    var io = five.stubs.firmata.singleton
+exercise.addVerifyProcessor(verifyProcessor(exercise, function (test, done) {
+  var io = five.stubs.firmata.singleton
 
-    expect(io, 'no board instance created').to.exist
+  test.truthy(io, 'create_board_instance')
 
-    // Get the listener that is listening for reads on pin A0
-    var analogReadListener = null
+/*
+  var piezo = five.Piezo.instances[0]
+  var btn = five.Button.instances[0]
+  var led = five.Led.instances[0]
+  var temp = five.Thermometer.instances[0]
 
-    for (var i = 0; i < io.analogRead.callCount; i++) {
-      var call = io.analogRead.getCall(i)
-      if (call.args[0] === pins.temp) {
-        analogReadListener = call.args[1]
-        break
-      }
+  test.truthy('create_speaker_instance', piezo)
+  test.equals('connect_speaker_to_pin', piezo.pin, pins.piezo, {pin: pins.piezo})
+
+  test.truthy('create_button_instance', btn)
+  test.equals('connect_button_to_pin', btn.pin, pins.btn, {pin: pins.btn})
+
+  test.truthy('create_led_instance', led)
+  test.equals('connect_led_to_pin', led.pin, pins.led, {pin: pins.led})
+
+  test.truthy('create_thermometer_instance', temp)
+  test.equals('connect_thermometer_to_pin', temp.pin, pins.temp, {pin: pins.temp})
+*/
+
+  // Get the listener that is listening for reads on pin A0
+  var analogReadListener = null
+
+  for (var i = 0; i < io.analogRead.callCount; i++) {
+    var call = io.analogRead.getCall(i)
+    if (call.args[0] === pins.temp) {
+      analogReadListener = call.args[1]
+      break
+    }
+  }
+
+  test.truthy(analogReadListener, 'read_analogue_values', {pin: 'A0'})
+  test.falsey(io.digitalWrite.called, 'premature_fire_alarm')
+
+  testAlarmTurnsOff(test, analogReadListener, io, function (error) {
+    if (error) {
+      return done(error)
     }
 
-    expect(analogReadListener, 'No values were read from A0').to.not.be.null
-    expect(io.digitalWrite.called, 'Fire alarm went off before a temperature was received!').to.be.false
-
-    testAlarmTurnsOff(analogReadListener, io, function (error) {
-      if (error) return broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
-
-      testAlarmResets(analogReadListener, io, function (error) {
-        broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
-      })
+    testAlarmResets(test, analogReadListener, io, function (error) {
+      return done(error)
     })
-  } catch (error) {
-    broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
-  }
-})
+  })
+}))
 
-function testAlarmTurnsOff (analogReadListener, io, cb) {
+function testAlarmTurnsOff (test, analogReadListener, io, cb) {
   analogReadListener(random(tempToVoltage(50.1), tempToVoltage(100)))
 
   // Within 2 seconds, the piezo should have sounded and the LED turned on
   setTimeout(function () {
     try {
-      expect(io.digitalWrite.calledWith(pins.piezo, io.HIGH), 'Piezo was not turned on when fire started').to.be.true
-      expect(io.digitalWrite.calledWith(pins.led, io.HIGH), 'LED was not turned on when fire started').to.be.true
+      test.truthy(io.digitalWrite.calledWith(pins.piezo, io.HIGH), 'speaker_turned_on')
+      test.truthy(io.digitalWrite.calledWith(pins.led, io.HIGH), 'led_turned_on')
     } catch (er) {
       return cb(er)
     }
@@ -83,8 +98,8 @@ function testAlarmTurnsOff (analogReadListener, io, cb) {
     // Within 2 seconds the last call to digitalWrite should have been with io.LOW
     setTimeout(function () {
       try {
-        expect(io.digitalWrite.calledWith(pins.piezo, io.LOW), 'Piezo was not turned off when fire stopped').to.be.true
-        expect(io.digitalWrite.calledWith(pins.led, io.LOW), 'LED was not turned off when fire stopped').to.be.true
+        test.truthy(io.digitalWrite.calledWith(pins.piezo, io.LOW), 'speaker_turned_off')
+        test.truthy(io.digitalWrite.calledWith(pins.led, io.LOW), 'led_turned_off')
       } catch (er) {
         return cb(er)
       }
@@ -99,15 +114,9 @@ function testAlarmTurnsOff (analogReadListener, io, cb) {
 
         try {
           // TODO: We can't currently test this as there is no way to stop a piezo from playing a tune
-          /*expect(
-            lastPiezoLowCall.calledAfter(lastPiezoHighCall),
-            'Piezo was not turned off after it was turned on and fire stopped'
-          ).to.be.true*/
+          //test.truthy(lastPiezoLowCall.calledAfter(lastPiezoHighCall), 'speaker_turned_off')
 
-          expect(
-            lastLedLowCall.calledAfter(lastLedHighCall),
-            'LED was not turned off after it was turned on and fire stopped'
-          ).to.be.true
+          test.truthy(lastLedLowCall.calledAfter(lastLedHighCall), 'speaker_turned_off')
 
           cb()
         } catch (er) {
@@ -120,7 +129,7 @@ function testAlarmTurnsOff (analogReadListener, io, cb) {
   }, 2000)
 }
 
-function testAlarmResets (analogReadListener, io, cb) {
+function testAlarmResets (test, analogReadListener, io, cb) {
   io.digitalWrite.reset()
 
   analogReadListener(random(tempToVoltage(50.1), tempToVoltage(100)))
@@ -130,8 +139,8 @@ function testAlarmResets (analogReadListener, io, cb) {
   var tests = [
     function(callback) {
       try {
-        expect(io.digitalWrite.calledWith(pins.piezo, io.HIGH), 'Piezo was not turned on when fire started').to.be.true
-        expect(io.digitalWrite.calledWith(pins.led, io.HIGH), 'LED was not turned on when fire started').to.be.true
+        test.truthy(io.digitalWrite.calledWith(pins.piezo, io.HIGH), 'speaker_turned_on')
+        test.truthy(io.digitalWrite.calledWith(pins.led, io.HIGH), 'led_turned_on')
       } catch (er) {
         return callback(er)
       }
@@ -159,15 +168,8 @@ function testAlarmResets (analogReadListener, io, cb) {
     },
     function(callback) {
       try {
-        expect(
-          io.digitalWrite.calledWith(pins.piezo, io.LOW),
-          'Piezo was not turned off when reset button pressed'
-        ).to.be.true
-
-        expect(
-          io.digitalWrite.calledWith(pins.led, io.LOW),
-          'LED was not turned off when reset button pressed'
-        ).to.be.true
+        test.truthy(io.digitalWrite.calledWith(pins.piezo, io.LOW), 'speaker_reset')
+        test.truthy(io.digitalWrite.calledWith(pins.led, io.LOW), 'led_reset')
       } catch (er) {
         return callback(er)
       }
@@ -184,15 +186,9 @@ function testAlarmResets (analogReadListener, io, cb) {
 
       try {
         // TODO: We can't currently test this as there is no way to stop a piezo from playing a tune
-        /*expect(
-          lastPiezoLowCall.calledAfter(lastPiezoHighCall),
-          'Piezo was not turned off after it was turned on and reset button pressed'
-        ).to.be.true*/
+        //test.truthy('speaker_turned_off_after_reset', lastPiezoLowCall.calledAfter(lastPiezoHighCall))
 
-        expect(
-          lastLedLowCall.calledAfter(lastLedHighCall),
-          'LED was not turned off after it was turned on and reset button pressed'
-        ).to.be.true
+        test.truthy(lastLedLowCall.calledAfter(lastLedHighCall), 'led_turned_off_after_reset')
       } catch (er) {
         return callback(er)
       }
@@ -206,14 +202,10 @@ function testAlarmResets (analogReadListener, io, cb) {
     },
     function(callback) {
       try {
-        expect(
-          io.digitalWrite.calledWith(pins.piezo, io.HIGH),
-          'Piezo turned back on after reset button pressed before temperature dropped below 50'
-        ).to.be.false
-
-        expect(io.digitalWrite.calledWith(pins.led, io.HIGH),
-          'LED turned back on after reset button pressed before temperature dropped below 50'
-        ).to.be.false
+        test.falsey(io.digitalWrite.calledWith(pins.piezo, io.HIGH),
+          'speaker_stayed_off_after_reset_before_temperature_drops')
+        test.falsey(io.digitalWrite.calledWith(pins.led, io.HIGH),
+          'led_stayed_off_after_reset_before_temperature_drops')
       } catch (er) {
         return callback(er)
       }
@@ -230,15 +222,8 @@ function testAlarmResets (analogReadListener, io, cb) {
     },
     function(callback) {
       try {
-        expect(
-          io.digitalWrite.calledWith(pins.piezo, io.HIGH),
-          'Piezo was not turned on when fire started after reset button was pressed'
-        ).to.be.true
-
-        expect(
-          io.digitalWrite.calledWith(pins.led, io.HIGH),
-          'LED was not turned on when fire started after reset button was pressed'
-        ).to.be.true
+        test.truthy(io.digitalWrite.calledWith(pins.piezo, io.HIGH), 'speaker_stayed_off_after_fire_after_reset')
+        test.truthy(io.digitalWrite.calledWith(pins.led, io.HIGH), 'led_stayed_off_after_fire_after_reset')
 
         // Reset
         analogReadListener(random(tempToVoltage(0), tempToVoltage(50)))

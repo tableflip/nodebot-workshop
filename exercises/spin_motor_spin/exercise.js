@@ -1,11 +1,9 @@
 var proxyquire = require('proxyquire')
 var five = require('../../stubs/five')
-var expect = require('chai').expect
 var exercise = require('workshopper-exercise')()
 var filecheck = require('workshopper-exercise/filecheck')
 var path = require('path')
-var notifier = require('../../lib/notifier')
-var broadcaster = require('../../lib/broadcaster')
+var verifyProcessor = require('../../lib/verify-processor')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -16,7 +14,7 @@ exercise.addProcessor(function (mode, callback) {
   proxyquire(path.join(process.cwd(), exercise.args[0]), {'johnny-five': five.spyOn('Board', 'Motor')})
 
   setTimeout(function() {
-    console.log('Please wait while your solution is tested...')
+    console.log(exercise.__('please_wait'))
   }, 1000)
 
   // need a better way of detecting when we are done..
@@ -25,49 +23,48 @@ exercise.addProcessor(function (mode, callback) {
   }, 5000)
 })
 
+var pins = {
+  motor: 9
+}
+
 // add a processor only for 'verify' calls
-exercise.addVerifyProcessor(function (callback) {
-  try {
-    var io = five.stubs.firmata.singleton
+exercise.addVerifyProcessor(verifyProcessor(exercise, function (test, done) {
+  var io = five.stubs.firmata.singleton
 
-    expect(io, 'no board instance created').to.exist
+  test.truthy(io, 'create_board_instance')
 
-    var board = five.Board.instances[0]
-    var motor = five.Motor.instances[0]
+  var board = five.Board.instances[0]
+  var motor = five.Motor.instances[0]
 
-    expect(motor, 'no motor instance created').to.exist
-    expect(motor.pin, 'motor expected to be connected to pin 9').to.equal(9)
+  test.truthy(motor, 'create_motor_instance')
+  test.equals(motor.pin, pins.motor, 'connect_motor_to_pin', {pin: pins.motor})
 
-    // Ensure start and stop were called
-    expect(motor.start.called, 'motor.start was not called').to.be.true
-    expect(motor.stop.called, 'motor.stop was not called').to.be.true
+  // Ensure start and stop were called
+  test.truthy(motor.start.called, 'motor_start_called')
+  test.truthy(motor.stop.called, 'motor_stop_called')
+  test.greaterThan(motor.start.callCount, 1, 'motor_continually_start_and_stop')
 
-    expect(motor.start.callCount, 'motor doesn\'t continually start and stop').to.be.gt(1)
+  var start0 = motor.start.getCall(0)
+  var start1 = motor.start.getCall(1)
+  var stop0 = motor.stop.getCall(0)
 
-    var start0 = motor.start.getCall(0)
-    var start1 = motor.start.getCall(1)
-    var stop0 = motor.stop.getCall(0)
+  // Start was called before stop
+  test.truthy(start0.calledBefore(stop0), 'motor_started_before_stopped')
+  test.equals(start0.args[0], 200, 'motor_start_speed', {speed: 200})
+  test.greaterThan(board.wait.callCount, 1, 'board_wait_called')
 
-    // Start was called before stop
-    expect(start0.calledBefore(stop0), 'motor was not started before it was stopped!').to.be.true
-    expect(start0.args[0], 'motor not started at 200').to.equal(200)
-    expect(board.wait.callCount, 'board.wait was not called').to.be.gt(1)
+  var wait0 = board.wait.getCall(0)
+  var wait1 = board.wait.getCall(1)
 
-    var wait0 = board.wait.getCall(0)
-    var wait1 = board.wait.getCall(1)
+  // Ensure start -> wait -> stop -> wait -> start
+  test.equals(wait0.args[0], 2000, 'board_waited_before_stopping', {seconds: 2})
+  test.truthy(stop0.calledAfter(wait0), 'motor_stop_after_seconds', {seconds: 2})
+  test.truthy(wait1.calledAfter(stop0), 'board_waited_after_stopping')
+  test.equals(wait1.args[0], 1000, 'board_waited_before_starting_again', {seconds: 1})
+  test.truthy(start1.calledAfter(wait1), 'motor_started_again', {seconds: 1})
+  test.equals(start1.args[0], 200, 'motor_start_again_speed', {speed: 200})
 
-    // Ensure start -> wait -> stop -> wait -> start
-    expect(wait0.args[0], 'didn\'t use board.wait to wait 2 seconds before stopping the motor').to.equal(2000)
-    expect(stop0.calledAfter(wait0), 'motor didn\'t stop after 2 seconds')
-    expect(wait1.calledAfter(stop0), 'didn\'t use board.wait after motor stopped')
-    expect(wait1.args[0], 'didn\'t use board.wait to wait 1 second before starting the motor again').to.equal(1000)
-    expect(start1.calledAfter(wait1), 'motor didn\'t start again after 1 second')
-    expect(start1.args[0], 'motor not started again at 200').to.equal(200)
-
-    broadcaster(exercise)(function (er) { notifier(exercise)(er, callback) })
-  } catch(error) {
-    broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
-  }
-})
+  done()
+}))
 
 module.exports = exercise

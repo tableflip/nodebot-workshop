@@ -5,7 +5,10 @@ board.on('ready', function () {
   var piezo = new five.Piezo(9)
   var led = new five.Led(13)
   var btn = new five.Button(5)
-  var thermo = new five.Sensor('A0')
+  var thermo = new five.Thermometer({
+    controller: 'TMP36',
+    pin: 'A0'
+  })
 
   var threshold = 50
   var isOnFire = false
@@ -44,10 +47,7 @@ board.on('ready', function () {
 
   // Watch the temp
   thermo.on('change', function () {
-    // Convert to celsius (TMP36)
-    var temp = ((this.value * 0.004882814) - 0.5) * 100
-
-    if (temp > threshold) {
+    if (this.celsius > threshold) {
       if (!isReset) {
         panic()
       }
@@ -56,5 +56,4 @@ board.on('ready', function () {
       isReset = false // clear the reset flag when temp drops below threshold
     }
   })
-
 })

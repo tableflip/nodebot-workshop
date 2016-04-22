@@ -1,11 +1,9 @@
 var proxyquire = require('proxyquire')
 var five = require('../../stubs/five')
-var expect = require('chai').expect
 var exercise = require('workshopper-exercise')()
 var filecheck = require('workshopper-exercise/filecheck')
 var path = require('path')
-var notifier = require('../../lib/notifier')
-var broadcaster = require('../../lib/broadcaster')
+var verifyProcessor = require('../../lib/verify-processor')
 
 // checks that the submission file actually exists
 exercise = filecheck(exercise)
@@ -16,7 +14,7 @@ exercise.addProcessor(function (mode, callback) {
   proxyquire(path.join(process.cwd(), exercise.args[0]), {'johnny-five': five.spyOn('Board', 'Servo')})
 
   setTimeout(function() {
-    console.log('Please wait while your solution is tested...')
+    console.log(exercise.__('please_wait'))
   }, 1000)
 
   // need a better way of detecting when we are done..
@@ -25,36 +23,37 @@ exercise.addProcessor(function (mode, callback) {
   }, 4000)
 })
 
+var pins = {
+  servo: 9
+}
+
 // add a processor only for 'verify' calls
-exercise.addVerifyProcessor(function (callback) {
-  try {
-    var io = five.stubs.firmata.singleton
+exercise.addVerifyProcessor(verifyProcessor(exercise, function (test, done) {
+  var io = five.stubs.firmata.singleton
 
-    expect(io, 'no board instance created').to.exist
+  test.truthy(io, 'create_board_instance')
 
-    var board = five.Board.instances[0]
-    var servo = five.Servo.instances[0]
+  var board = five.Board.instances[0]
+  var servo = five.Servo.instances[0]
 
-    expect(servo, 'no servo instance created').to.exist
-    expect(servo.pin, 'servo expected to be connected to pin 9').to.equal(9)
+  test.truthy(servo, 'create_servo_instance')
+  test.equals(servo.pin, pins.servo, 'connect_servo_to_pin', {pin: pins.servo})
 
-    expect(servo.sweep.calledOnce, 'servo did not sweep').to.be.true
-    expect(board.wait.calledOnce, 'board.wait was not used').to.be.true
-    expect(servo.stop.calledOnce, 'servo did not stop before moving to expected angle').to.be.true
+  test.truthy(servo.sweep.calledOnce, 'servo_sweep')
+  test.truthy(board.wait.calledOnce, 'board_wait_called')
 
-    var wait0 = board.wait.getCall(0)
-    var stop0 = servo.stop.getCall(0)
-    var toLast = servo.to.getCall(servo.to.callCount - 1)
+  test.truthy(servo.stop.calledOnce, 'servo_did_not_stop')
 
-    expect(wait0.calledBefore(stop0), 'servo unexpectedly stopped before waiting').to.be.true
-    expect(wait0.args[0], 'servo did not wait for expected time').to.equal(3000)
-    expect(stop0.calledBefore(toLast), 'servo did not stop before returning to center').to.be.true
-    expect(toLast.args[0], 'servo did not return to center').to.equal(90)
+  var wait0 = board.wait.getCall(0)
+  var stop0 = servo.stop.getCall(0)
+  var toLast = servo.to.getCall(servo.to.callCount - 1)
 
-    broadcaster(exercise)(function (er) { notifier(exercise)(er, callback) })
-  } catch(error) {
-    broadcaster(exercise)(error, function (er) { notifier(exercise)(er, callback) })
-  }
-})
+  test.truthy(wait0.calledBefore(stop0), 'servo_stopped')
+  test.equals(wait0.args[0], 3000, 'servo_wait')
+  test.truthy(stop0.calledBefore(toLast), 'servo_stop_before_return_to_center')
+  test.equals(toLast.args[0], 90, 'servo_returned_to_center')
+
+  done()
+}))
 
 module.exports = exercise

@@ -11,5 +11,207 @@
     "robot_arm": "Robot Arm",
     "remote_temperature": "Remote Temperature",
     "fire_alarm": "Fire Alarm"
+  },
+  "common": {
+    "exercise": {
+      "please_wait": "Please wait while your solution is tested...",
+      "pass": {
+        "create_board_instance": "Board instance created",
+        "create_led_instance": "LED instance created",
+        "create_button_instance": "Button instance created",
+        "create_speaker_instance": "Piezo instance created",
+        "create_thermometer_instance": "Thermometer instance created",
+        "create_sensor_instance": "Sensor instance created",
+        "create_servo_instance": "Servo instance created",
+        "create_motor_instance": "Motor instance created",
+        "connect_led_to_pin": "LED connected to pin {{pin}}",
+        "connect_button_to_pin": "Button connected to pin {{pin}}",
+        "connect_speaker_to_pin": "Piezo connected to pin {{pin}}",
+        "connect_thermometer_to_pin": "Thermometer connected to pin {{pin}}",
+        "connect_sensor_to_pin": "Sensor connected to pin {{pin}}",
+        "connect_servo_to_pin": "Servo connected to pin {{pin}}",
+        "connect_motor_to_pin": "Motor connected to pin {{pin}}",
+        "read_analogue_values": "Values were read from {{pin}}",
+        "pin_mode": "Pin {{pin}} was set to {{mode}} mode",
+        "board_wait_called": "board.wait called"
+      },
+      "fail": {
+        "create_board_instance": "No board instance created",
+        "create_led_instance": "No LED instance created",
+        "create_button_instance": "No Button instance created",
+        "create_speaker_instance": "No Piezo instance created",
+        "create_thermometer_instance": "No Thermometer instance created",
+        "create_sensor_instance": "No Sensor instance created",
+        "create_servo_instance": "No Servo instance created",
+        "create_motor_instance": "No Motor instance created",
+        "connect_led_to_pin": "LED connected to wrong pin",
+        "connect_button_to_pin": "Button connected to wrong pin",
+        "connect_speaker_to_pin": "Piezo connected to wrong pin",
+        "connect_thermometer_to_pin": "Thermometer connected to wrong pin",
+        "connect_sensor_to_pin": "Sensor connected to wrong pin",
+        "connect_servo_to_pin": "Servo connected to wrong pin",
+        "connect_motor_to_pin": "Motor connected to wrong pin",
+        "read_analogue_values": "No values were read from {{pin}}",
+        "pin_mode": "Pin {{pin}} was set to the wrong mode",
+        "board_wait_called": "board.wait not called"
+      }
+    }
+  },
+  "exercises": {
+    "blink_blink": {
+      "pass": {
+        "led_flashing": "LED is flashing once a second",
+        "pin_turned_on": "Pin 13 was turned on",
+        "pin_turned_off": "Pin 13 was turned on"
+      },
+      "fail": {
+        "led_flashing": "LED is not flashing once a second",
+        "pin_mode": "Pin 13 was not set to OUTPUT mode",
+        "pin_turned_on": "Pin 13 was never turned on",
+        "pin_turned_off": "Pin 13 was never turned off"
+      }
+    },
+    "fire_alarm": {
+      "pass": {
+        "premature_fire_alarm": "Fire alarm has not gone off yet",
+        "speaker_turned_on": "Piezo sounded when fire started",
+        "led_turned_on": "LED turned on when fire started",
+        "speaker_turned_off": "Piezo became silent when fire stopped",
+        "led_turned_off": "LED turned off when fire stopped",
+        "speaker_reset": "Piezo was turned off when reset button pressed",
+        "led_reset": "LED was turned off when reset button pressed",
+        "speaker_turned_off_after_reset": "Piezo was turned off after it was turned on and reset button pressed",
+        "led_turned_off_after_reset": "LED was turned off after it was turned on and reset button pressed",
+        "speaker_stayed_off_after_reset_before_temperature_drops": "Piezo stayed off after reset button pressed before temperature dropped below 50",
+        "led_stayed_off_after_reset_before_temperature_drops": "LED stayed off after reset button pressed before temperature dropped below 50",
+        "speaker_stayed_off_after_fire_after_reset": "Piezo turned on when fire started after reset button was pressed",
+        "led_stayed_off_after_fire_after_reset": "LED turned on when fire started after reset button was pressed"
+      },
+      "fail": {
+        "premature_fire_alarm": "Fire alarm went off before a temperature was received!",
+        "speaker_turned_on": "Piezo was not turned on when fire started",
+        "led_turned_on": "LED was not turned on when fire started",
+        "speaker_turned_off": "Piezo was not turned off when fire stopped",
+        "led_turned_off": "LED was not turned off when fire stopped",
+        "speaker_reset": "Piezo was not turned off when reset button pressed",
+        "led_reset": "LED was not turned off when reset button pressed",
+        "speaker_turned_off_after_reset": "Piezo was not turned off after it was turned on and reset button pressed",
+        "led_turned_off_after_reset": "LED was not turned off after it was turned on and reset button pressed",
+        "speaker_stayed_off_after_reset_before_temperature_drops": "Piezo turned back on after reset button pressed before temperature dropped below 50",
+        "led_stayed_off_after_reset_before_temperature_drops": "LED turned back on after reset button pressed before temperature dropped below 50",
+        "speaker_stayed_off_after_fire_after_reset": "Piezo was not turned on when fire started after reset button was pressed",
+        "led_stayed_off_after_fire_after_reset": "LED was not turned on when fire started after reset button was pressed"
+      }
+    },
+    "light_switch": {
+      "pass": {
+        "led_turn_off_after_first_press": "LED turned off after first button press",
+        "led_turn_on_after_first_press": "LED turned on after first button press",
+        "led_turn_off_after_second_press": "LED turned off after second button press",
+        "led_turn_on_after_second_press": "LED turned on after second button press",
+        "led_turn_off_after_third_press": "LED turned off after third button press",
+        "led_turn_on_after_third_press": "LED turned on after third button press",
+        "led_turn_off_after_fourth_press": "LED turned off after fourth button press",
+        "led_turn_on_after_fourth_press": "LED turned on after fourth button press"
+      },
+      "fail": {
+        "led_turn_off_after_first_press": "LED did not turn off after first button press",
+        "led_turn_on_after_first_press": "LED did not turn on after first button press",
+        "led_turn_off_after_second_press": "LED did not turn off after second button press",
+        "led_turn_on_after_second_press": "LED did not turn on after second button press",
+        "led_turn_off_after_third_press": "LED did not turn off after third button press",
+        "led_turn_on_after_third_press": "LED did not turn on after third button press",
+        "led_turn_off_after_fourth_press": "LED did not turn off after fourth button press",
+        "led_turn_on_after_fourth_press": "LED did not turn on after fourth button press"
+      }
+    },
+    "ping_bell": {
+      "pass": {
+        "speaker_played_tune_on_udp_message": "Piezo played a tone when sent a UDP message"
+      },
+      "fail": {
+        "speaker_played_tune_on_udp_message": "Piezo didn't play a tone when sent a UDP message"
+      }
+    },
+    "remote_temperature": {
+      "pass": {
+        "no_get_temperature_on_remote": "Remote has method 'getTemperature'",
+        "got_wrong_temperature": "Received expected temperature"
+      },
+      "fail": {
+        "no_get_temperature_on_remote": "Remote has no method 'getTemperature'",
+        "got_wrong_temperature": "Didn't receive expected temperature"
+      }
+    },
+    "robot_arm": {
+      "pass": {
+        "servo_to_called": "servo.to was called when sensor was read",
+        "servo_moved_to_correct_angle": "Moved servo to correct angle"
+      },
+      "fail": {
+        "servo_to_called": "servo.to wasn't called when sensor was read",
+        "servo_moved_to_correct_angle": "Didn't move servo to correct angle"
+      }
+    },
+    "servo_wave": {
+      "pass": {
+        "servo_sweep": "servo swept",
+        "servo_did_not_stop": "servo stopped before moving to expected angle",
+        "servo_stopped": "servo did not stop before waiting",
+        "servo_wait": "servo waited for expected time",
+        "servo_stop_before_return_to_center": "servo stopped before returning to center",
+        "servo_returned_to_center": "servo returned to center"
+      },
+      "fail": {
+        "servo_sweep": "servo did not sweep",
+        "servo_did_not_stop": "servo did not stop before moving to expected angle",
+        "servo_stopped": "servo unexpectedly stopped before waiting",
+        "servo_wait": "servo did not wait for expected time",
+        "servo_stop_before_return_to_center": "servo did not stop before returning to center",
+        "servo_returned_to_center": "servo did not return to center"
+      }
+    },
+    "spin_motor_spin": {
+      "pass": {
+        "motor_start_called": "motor.start was called",
+        "motor_stop_called": "motor.stop was called",
+        "motor_continually_start_and_stop": "motor continually starts and stops",
+        "motor_started_before_stopped": "motor was started before it was stopped",
+        "motor_start_speed": "motor started at {{speed}}",
+        "board_waited_before_stopping": "Used board.wait to wait {{seconds}} seconds before stopping the motor",
+        "motor_stop_after_seconds": "motor stopped after {{seconds}} seconds",
+        "board_waited_after_stopping": "Used board.wait to wait after stopping the motor",
+        "board_waited_before_starting_again": "Used board.wait to wait {{seconds}} second before starting the motor again",
+        "motor_started_again": "motor started again after {{seconds}} second",
+        "motor_start_again_speed": "motor started again at {{speed}}"
+      },
+      "fail": {
+        "motor_start_called": "motor.start was not called",
+        "motor_stop_called": "motor.stop was not called",
+        "motor_continually_start_and_stop": "motor doesn't continually start and stop",
+        "motor_started_before_stopped": "motor was not started before it was stopped!",
+        "motor_start_speed": "motor not started at {{speed}}",
+        "board_waited_before_stopping": "Didn't use board.wait to wait {{seconds}} seconds before stopping the motor",
+        "motor_stop_after_seconds": "motor didn't stop after {{seconds}} seconds",
+        "board_waited_after_stopping": "Didn't use board.wait to wait after stopping the motor",
+        "board_waited_before_starting_again": "Didn't use board.wait to wait {{seconds}} second before starting the motor again",
+        "motor_started_again": "motor didn't start again after {{seconds}} second",
+        "motor_start_again_speed": "motor not started again at {{speed}}"
+      }
+    },
+    "street_lamp": {
+      "pass": {
+        "led_turned_on_when_resistor_value_high": "LED turned on when resistor value high",
+        "led_turned_off_when_resistor_value_low": "LED turned off when resistor value low",
+        "led_turned_off_after_turned_on": "LED was turned off after it was turned on",
+        "led_turned_on_after_turned_off": "LED was turned on after it was turned off"
+      },
+      "fail": {
+        "led_turned_on_when_resistor_value_high": "LED was not turned on when resistor value high",
+        "led_turned_off_when_resistor_value_low": "LED was not turned off when resistor value low",
+        "led_turned_off_after_turned_on": "LED was not turned off after it was turned on",
+        "led_turned_on_after_turned_off": "LED was not turned on after it was turned off"
+      }
+    }
   }
 }
