@@ -35,7 +35,7 @@ GND  o---.------/\/\/------.
 
 - Potentiometer - http://node-ardx.org/electronics-primer#pot
 
-> Produces a variable resistance dependant on the angular position of the shaft.
+> シャフトの角度によって変化する可変抵抗を生成します。
 
 ## ドキュメント
 
@@ -44,9 +44,9 @@ GND  o---.------/\/\/------.
 
 ## ヒント
 
-- A potentiometer is another use case for the Sensor object...
-- A pot produces input values between 0 and 1023.
-- A servo can typically be moved between 0 and 179 degrees.
-- `five.Fn.map` can map the pot values (0 - 1023) to servo angles (0 - 179).
+- ポテンショメータは、センサーオブジェクトの別のユースケースです。
+- 0〜1023の間の入力値を生成します。
+- サーボは通常0〜179度の角度を動くことができます。
+- `five.Fn.mapメソッド`はポテンショメータの値(0~1023)をサーボの角度(0~179)にマッピングすることができます。
 
 ---

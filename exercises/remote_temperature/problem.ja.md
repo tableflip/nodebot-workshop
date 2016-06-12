@@ -27,19 +27,19 @@ GND  o-----'
 
 - TMP36 - http://node-ardx.org/electronics-primer#tempsensor
 
-> Produces a variable resistance dependant on the ambient temperature.
+> 周囲の温度によって変化する可変抵抗を生成します。
 
 ## ヒント
 
-- Remember, you're always working with voltages on pins
-- The value from a sensor is a representation of the voltage on that pin
-- You'll need to convert that value into a useful temperature reading...
-- To create an enpoint, pass dnode an object with your endpoint as a method
-- Your endpoint should take a callback and pass the value to it
+- 常にピンの電圧で作業していることを覚えておいてください。
+- センサーからの値はそのピンの電圧の表現です。
+- 有用な温度の読取り値に値を変換する必要があります。
+- エンドポイントを作成するには、エンドポイントのメソッドにdnodeオブジェクトを渡します。
+- あなたのエンドポイントは、コールバックと値を渡す必要があります。
 
 ## ドキュメント
 
 - https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md
 - dnode - https://github.com/substack/dnode
-
+- dnodeの使い方 - http://qiita.com/n0bisuke/items/5a9d3e2fd1785ad60e44
 ---

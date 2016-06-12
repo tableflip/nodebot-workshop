@@ -6,12 +6,11 @@
 **このワークショップではArduinoなどは用意しなくても大丈夫です。**
 
 出題される問題にチャレンジしてみましょう。
-The low level code to talk to the Arduino is stubbed out.
 
 **実行可能な`johnny-five`のコードを記述していってください**
 
 それぞれの回答は`node`プログラムとして実行可能となります。
-Arduinoに配線をつないだり、USB接続したりして回答コードがどのように動作するか確認してみましょう。
+ハードウェアを持っている人はArduinoに配線をつないだり、USB接続したりして回答コードがどのように動作するか確認してみましょう。
 
 -------------------------------------------------------------------------------
 
@@ -64,5 +63,5 @@ Arduinoに配線をつないだり、USB接続したりして回答コードが�
 
 - Board - https://github.com/rwaldron/johnny-five/wiki/Board
 - Led - https://github.com/rwaldron/johnny-five/wiki/Led#api
-
+- nodebot-workshopについて - http://liginc.co.jp/283711
 ---
