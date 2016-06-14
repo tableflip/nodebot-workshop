@@ -1,9 +1,9 @@
 __3秒サーボを動かして、止めて、真ん中に戻しましょう。__
 
-- 9pinに接続した`Servo`インスタンスを作成します
-- `servo.sweep`を使い0˚から180˚に回転させます
-- `board.wait`を'reset'コールバックの3秒後に使います
-- 'reset'コールバックでは`stop`と`center`にします
+- 9pinに接続した`Servoインスタンス`を作成します
+- `servo.sweepメソッド`を使い0˚から180˚に回転させます
+- `board.waitメソッド`を使い、3秒後にコールバックを発火させます
+- コールバック内では`stopメソッド`と`centerメソッド`を使いましょう。
 - どこの行に書き足せばいいかドキュメントで確認しましょう
 
 ## ひな形
@@ -40,7 +40,7 @@ GND  o--. | .--o  Pin 9
 
 - Servo - http://node-ardx.org/electronics-primer#servo
 
-> Takes a timed pulse and converts it into an angular position of the output shaft.
+> パルスを受け取り、シャフトの角度を指定して回転させます。
 
 ## ドキュメント
 

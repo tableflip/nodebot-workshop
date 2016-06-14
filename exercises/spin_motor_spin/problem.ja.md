@@ -5,8 +5,7 @@ __9pinにモーターを接続してスピンさせましょう！__
 * 1秒後に回転再開させます
 * この流れを無限ループさせてください
 
-ヒント:
-Hint: You could use the motor `start` and `stop` events to stop/start the motor.
+ヒント: モーターの回転を開始したり、停止させるために`start`と` stop`イベントを使用できます。
 
 ## 回路図
 
