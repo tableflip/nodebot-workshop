@@ -34,10 +34,10 @@
     "url": "https://github.com/tableflip/nodebot-workshop/issues"
   },
   "dependencies": {
-    "async": "^1.5.0",
+    "async": "^2.0.1",
     "dnode": "^1.2.0",
     "ioboard": "^3.0",
-    "johnny-five": "^0.9.11",
+    "johnny-five": "^0.10.0",
     "proxyquire": "^1.0.0",
     "sinon": "^1.9",
     "workshopper-adventure": "4.6.1",
