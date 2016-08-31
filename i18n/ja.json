@@ -62,7 +62,7 @@
       "pass": {
         "led_flashing": "LED is flashing once a second",
         "pin_turned_on": "Pin 13 was turned on",
-        "pin_turned_off": "Pin 13 was turned on"
+        "pin_turned_off": "Pin 13 was turned off"
       },
       "fail": {
         "led_flashing": "LED is not flashing once a second",
