@@ -58,6 +58,7 @@ A `pre-commit` hook will be installed in your repo clone to run the test/lint sc
 
 ## Translations
 
+- @gorhgorh - French
 - @n0bisuke - Japanese
 
 [1]: http://nodeschool.io/
