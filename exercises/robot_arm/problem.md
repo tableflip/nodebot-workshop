@@ -2,8 +2,8 @@ __Make a remote control robot arm__
 
 Use a rotary potentiometer (pot) to control the position of a servo.
 
-* Attach a potentiometer to pin A2
-* Attach a servo to pin 9
+* Attach a potentiometer to pin **A2**
+* Attach a servo to pin **9**
 * Have the servo rotate as the potentiometer is turned
 
 ## Circuit diagram

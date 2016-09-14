@@ -1,0 +1,217 @@
+{
+  "title":"NodeBot Workshop",
+  "subtitle":"Donne vie a ton Arduino avec Johnny-Five",
+  "exercise":{
+    "blink_blink":"Clignote",
+    "servo_wave":"La hola du Servo",
+    "spin_motor_spin":"Tourne Moteur Tourne",
+    "light_switch":"L'Interupteur",
+    "street_lamp":"Le Lampadaire",
+    "ping_bell":"Sonnette de Velo",
+    "robot_arm":"Bras Robot",
+    "remote_temperature":"Température à distance",
+    "fire_alarm":"L'alarme incendie"
+  },
+  "common":{
+    "exercise":{
+      "please_wait":"Veuillez attendre pendant le test de votre solution",
+      "pass":{
+        "create_board_instance":"Instance de la carte crée",
+        "create_led_instance":"Instance de la LED  crée",
+        "create_button_instance":"Instance du bouton crée",
+        "create_speaker_instance":"Instance du piezo crée",
+        "create_thermometer_instance":"Instance du Thermometer crée",
+        "create_sensor_instance":"Instance du capteur crée",
+        "create_servo_instance":"Instance du servo moteur crée",
+        "create_motor_instance":"Instance du moteur crée",
+        "connect_led_to_pin":"LED reliée à la broche {{pin}}",
+        "connect_button_to_pin":"Bouton relié à la broche {{pin}}",
+        "connect_speaker_to_pin":"Piezo relié à la broche {{pin}}",
+        "connect_thermometer_to_pin":"Thermomètre relié à la broche {{pin}}",
+        "connect_sensor_to_pin":"Capteur relié à la broche {{pin}}",
+        "connect_servo_to_pin":"Servo moteur relié au pin {{pin}}",
+        "connect_motor_to_pin":"Moteur relié au pin {{pin}}",
+        "read_analogue_values":"Des valeurs ont été lues sur le pin {{pin}}",
+        "pin_mode":"La broche {{pin}} a été configurée en mode {{mode}}",
+        "board_wait_called":"board.wait appelé"
+      },
+      "fail":{
+        "create_board_instance":"Pas d'instance de 'Board' crée",
+        "create_led_instance":"Pas d'instance de LED creée",
+        "create_button_instance":"Aucune instance de 'Button' créé",
+        "create_speaker_instance":"Aucune instance de 'Piezo' créée",
+        "create_thermometer_instance":"Aucune instance de thermomètre créée",
+        "create_sensor_instance":"Aucune instance de 'Sensor' créé",
+        "create_servo_instance":"Aucune instance de 'Servo' créée",
+        "create_motor_instance":"Aucune instance de 'Motor' créé",
+        "connect_led_to_pin":"La LED est relié à la mauvaise broche",
+        "connect_button_to_pin":"Interupteur relié à la mauvaise broche",
+        "connect_speaker_to_pin":"Piezo relié à la mauvaise broche",
+        "connect_thermometer_to_pin":"Thermomètre relié à la mauvaise broche",
+        "connect_sensor_to_pin":"Capteur relié à la mauvaise broche",
+        "connect_servo_to_pin":"Le servo moteur est relié à la mauvaise broche",
+        "connect_motor_to_pin":"Le moteur est relié à la mauvaise broche",
+        "read_analogue_values":"Aucune valeur n'a été lue sur la broche {{pin}}",
+        "pin_mode":"La broche {{pin}} a été configurée avec le mauvais mode",
+        "board_wait_called":"'board.wait' n'a pas été appelé"
+      }
+    }
+  },
+  "exercises":{
+    "blink_blink":{
+      "pass":{
+        "led_flashing":"La LED flashe une fois par seconde",
+        "pin_turned_on":"La broche 13 a basculé en état haut",
+        "pin_turned_off":"La broche 13 a basculé en état haut"
+      },
+      "fail":{
+        "led_flashing":"La LED ne clignote pas une fois par seconde",
+        "pin_mode":"Broche 13 n’a pas été configurée en mode OUTPUT",
+        "pin_turned_on":"La broche 13 n'a jamais basculé en état haut",
+        "pin_turned_off":"La broche 13 n'a jamais basculé en état bas"
+      }
+    },
+    "fire_alarm":{
+      "pass":{
+        "premature_fire_alarm":"La sirène ne s'est pas encore éteinte",
+        "speaker_turned_on":"Le piezo à émis un son quand le feu a commencé",
+        "led_turned_on":"La LED s'est allumée quand le feu a commencé",
+        "speaker_turned_off":"Le piezo est devenu silencieux quand le feu a commencé",
+        "led_turned_off":"La LED s'est éteinte quand le feu s'est éteint",
+        "speaker_reset":"Le piezo est devenu silencieux quand le bouton de réinitialisation a été pressé",
+        "led_reset":"La LED s'est eteinte quand le bouton de réinitialisation a été pressé",
+        "speaker_turned_off_after_reset":"Le piezo s'est éteint après s'être allumé et que le bouton de reinitialisation ai été préssé",
+        "led_turned_off_after_reset":"La LED s'est éteinte alors quelle etait allumée et que le bouton de reinitialisation soit préssé",
+        "speaker_stayed_off_after_reset_before_temperature_drops":"Le piezo est resté éteins après que le bouton de reinitialisation ait été pressé avant que la température ne chute en dessous de 50°",
+        "led_stayed_off_after_reset_before_temperature_drops":"La LED est resté éteinte après que le bouton de reinitialisation ait été pressé avant que la température ne chute en dessous de 50°",
+        "speaker_stayed_off_after_fire_after_reset":"Le piezo s'est allumé quand le feu a commencé après que le bouton de reinitialisation ait été pressé",
+        "led_stayed_off_after_fire_after_reset":"La led s'est allumée quand le feu a commencé après que le bouton de reinitialisation ait été pressé"
+      },
+      "fail":{
+        "premature_fire_alarm":"La sirène s'est arrêtée avant que la température soit reçue !",
+        "speaker_turned_on":"Le piezo ne s'est pas allumé après que le feu se soit déclaré",
+        "led_turned_on":"La LED ne s'est pas allumée après que le feu se soit déclaré",
+        "speaker_turned_off":"Le piezo ne s'est pas arrété après que le feu se soit éteind",
+        "led_turned_off":"La LED ne s'est pas arrété après que le feu se soit éteind",
+        "speaker_reset":"Le piezo n'est pas devenu silencieux quand le bouton de réinitialisation a été pressé",
+        "led_reset":"La LED ne s'est pas eteinte quand le bouton de réinitialisation a été pressé",
+        "speaker_turned_off_after_reset":"Le piezo ne s'est pas éteint après que le bouton de réinitialisation ai été pressé lorsqu'il émettait un son",
+        "led_turned_off_after_reset":"La LED ne s'est pas éteinte après que le bouton de reinitialisation ai été préssé lorcequ'elle etait allumé",
+        "speaker_stayed_off_after_reset_before_temperature_drops":"Le piezo s'est remis en route après que le bouton de réinitialisation ait été pressé avant que la température ai chuté en dessous de 50°",
+        "led_stayed_off_after_reset_before_temperature_drops":"La LED s'est re allumée après que le bouton de réinitialisation ait été pressé avant que la température ai chuté en dessous de 50°",
+        "speaker_stayed_off_after_fire_after_reset":"La Led ne s'est pas allumé quand le feu a commencé après que le bouton de reinitialisation ait été pressé",
+        "led_stayed_off_after_fire_after_reset":"La LED ne n'est pas allumée après que le bouton de réinitialisation aie été pressé"
+      }
+    },
+    "light_switch":{
+      "pass":{
+        "led_turn_off_after_first_press":"La LED s'est éteinte après le second appui sur le bouton",
+        "led_turn_on_after_first_press":"La LED s'est allumée après le premier appui sur le bouton",
+        "led_turn_off_after_second_press":"La LED s'est éteinte après le second appui sur le bouton",
+        "led_turn_on_after_second_press":"La LED s'est allumée après le deuxième appui sur le bouton",
+        "led_turn_off_after_third_press":"La LED s'est éteinte après le troisième appui sur le bouton",
+        "led_turn_on_after_third_press":"La LED s'est allumée après le troisième appui sur le bouton",
+        "led_turn_off_after_fourth_press":"La LED s'est éteinte après le quatriéme appui sur le bouton",
+        "led_turn_on_after_fourth_press":"La LED s'est allumée après le quatriéme appui sur le bouton"
+      },
+      "fail":{
+        "led_turn_off_after_first_press":"La LED ne s'est pas éteinte après le quatriéme appui sur le bouton",
+        "led_turn_on_after_first_press":"La LED ne s'est pas allumée après le premier appui sur le bouton",
+        "led_turn_off_after_second_press":"La LED ne s'est pas éteinte après le deuxième appui sur le bouton",
+        "led_turn_on_after_second_press":"La LED ne s'est pas allumée après le deuxième appui sur le bouton",
+        "led_turn_off_after_third_press":"La LED ne s'est pas éteinte après le troisième appui sur le bouton",
+        "led_turn_on_after_third_press":"La LED ne s'est pas allumée après le troisième appui sur le bouton",
+        "led_turn_off_after_fourth_press":"La LED ne s'est pas éteinte après le quatriéme appui sur le bouton",
+        "led_turn_on_after_fourth_press":"La LED ne s'est pas allumée après le quatriéme appui sur le bouton"
+      }
+    },
+    "ping_bell":{
+      "pass":{
+        "speaker_played_tune_on_udp_message":"Le piezo à émis un son quand on lui a envoyé un message UDP"
+      },
+      "fail":{
+        "speaker_played_tune_on_udp_message":"Le piezo n'a pas émis un son quand on lui a envoyé un message UDP"
+      }
+    },
+    "remote_temperature":{
+      "pass":{
+        "no_get_temperature_on_remote":"Le capteur a distance a une méthode 'getTemperature'",
+        "got_wrong_temperature":"La thempérature attendue a été reçue"
+      },
+      "fail":{
+        "no_get_temperature_on_remote":"Le capteur a distance n'a pas de méthode 'getTemperature'",
+        "got_wrong_temperature":"La température attendue n'a pas été reçue"
+      }
+    },
+    "robot_arm":{
+      "pass":{
+        "servo_to_called":"'servo.to' a été appelé quand de la donné du capteur a été lue",
+        "servo_moved_to_correct_angle":"Le servomoteur s'est déplacé à l'angle correct"
+      },
+      "fail":{
+        "servo_to_called":"'servo.to' n'a pas été appelé quand de la donné du capteur a été lue",
+        "servo_moved_to_correct_angle":"Le servomoteur ne s'est pas déplacé à l'angle correct"
+      }
+    },
+    "servo_wave":{
+      "pass":{
+        "servo_sweep":"le servomoteur à effectué un balayage",
+        "servo_did_not_stop":"le servomoteur s'est arrêté avant d'atteindre l'angle attendu",
+        "servo_stopped":"le servomoteur ne s'est pas arrêté avant d'attendre",
+        "servo_wait":"le servomoteur a attendu le délais prévu",
+        "servo_stop_before_return_to_center":"le servomoteur s'est arrêté avant de revenir a sa position centrale",
+        "servo_returned_to_center":"le servomoteur est revenu a sa position centrale"
+      },
+      "fail":{
+        "servo_sweep":"le servomoteur n'à pas effectué un balayage",
+        "servo_did_not_stop":"le servomoteur ne s'est pas arrêté avant de se déplacer à l'angle attendu",
+        "servo_stopped":"le servomoteur s'est arrêté de façon inattendue avant d'attendre",
+        "servo_wait":"le servomoteur n'a pas attendu le délais prévu",
+        "servo_stop_before_return_to_center":"le servomoteur ne s'est pas arrêté avant de revenir a sa position centrale",
+        "servo_returned_to_center":"le servomoteur n'est pas revenu a sa position centrale"
+      }
+    },
+    "spin_motor_spin":{
+      "pass":{
+        "motor_start_called":"'motor.start' a été appelé",
+        "motor_stop_called":"'motor.stop' a été appelé",
+        "motor_continually_start_and_stop":"le moteur s'allume et s'éteint continuellement",
+        "motor_started_before_stopped":"le moteur a été mis en marche avant de s'arrêter",
+        "motor_start_speed":"le moteur a démarré à {{speed}}",
+        "board_waited_before_stopping":"'board.wait' a été utilisé pour attendre {{seconds}} secondes avant d'arrêter le moteur",
+        "motor_stop_after_seconds":"moteur s'est arrêté après {{seconds}} secondes",
+        "board_waited_after_stopping":"'board.wait' a été utilisé pour attendre après l'arrêt du moteur",
+        "board_waited_before_starting_again":"'board.wait' a été utilisé pour attendre {{seconds}} secondes avant re démarer le moteur",
+        "motor_started_again":"le moteur à re démarrer après {{seconds}}",
+        "motor_start_again_speed":"le moteur à re démarrer a une vitesse de {{speed}}"
+      },
+      "fail":{
+        "motor_start_called":"'motor.start' n'a pas été appelé",
+        "motor_stop_called":"'motor.stop' n'a pas été appelé",
+        "motor_continually_start_and_stop":"le moteur ne s'allume et ne s'éteint pas continuellement",
+        "motor_started_before_stopped":"le moteur n'a pas été mis en marche avant de s'arrêter!",
+        "motor_start_speed":"le moteur n'a pas démarré à {{speed}}",
+        "board_waited_before_stopping":"'board.wait' n'a pas été utilisé pour attendre {{seconds}} secondes avant re démarer le moteur",
+        "motor_stop_after_seconds":"moteur ne s'est pas arrêté après {{seconds}} secondes",
+        "board_waited_after_stopping":"'board.wait' n'a pas été utilisé pour attendre après l'arrêt du moteur",
+        "board_waited_before_starting_again":"'board.wait' n'a pas été utilisé pour attendre {{seconds}} secondes avant re démarer le moteur",
+        "motor_started_again":"le moteur n'a pas re démarrer après {{seconds}}",
+        "motor_start_again_speed":"le moteur n'a pas re démarré à {{speed}}"
+      }
+    },
+    "street_lamp":{
+      "pass":{
+        "led_turned_on_when_resistor_value_high":"La LED s'est allumée quand la valeur de la résistance est élevée",
+        "led_turned_off_when_resistor_value_low":"La LED s'est eteinte quand la valeur de la résistance est basse",
+        "led_turned_off_after_turned_on":"La LED s'est éteinte après s'être allumé",
+        "led_turned_on_after_turned_off":"La LED s'est allumée après s'être éteinte"
+      },
+      "fail":{
+        "led_turned_on_when_resistor_value_high":"La LED ne s'est pas allumé quand la valeur de la résistance est haute",
+        "led_turned_off_when_resistor_value_low":"La LED ne s'est pas eteinte quand la valeur de la résistance est basse",
+        "led_turned_off_after_turned_on":"La LED ne s'est pas éteinte après s'être allumée",
+        "led_turned_on_after_turned_off":"La LED ne s'est pas rallumée après s'être éteinte"
+      }
+    }
+  }
+}
