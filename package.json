@@ -1,6 +1,6 @@
 {
   "name": "nodebot-workshop",
-  "version": "3.1.6",
+  "version": "3.2.0",
   "description": "A nodeschool workshop that will make your Ardunio alive with johnny-five",
   "main": "nodebot-workshop.js",
   "scripts": {
