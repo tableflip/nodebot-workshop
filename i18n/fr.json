@@ -61,14 +61,11 @@
     "blink_blink":{
       "pass":{
         "led_flashing":"La LED flashe une fois par seconde",
-        "pin_turned_on":"La broche 13 a basculé en état haut",
-        "pin_turned_off":"La broche 13 a basculé en état haut"
+        "blink_strobe_called": "blink() ou strobe() sont appelés"
       },
       "fail":{
         "led_flashing":"La LED ne clignote pas une fois par seconde",
-        "pin_mode":"Broche 13 n’a pas été configurée en mode OUTPUT",
-        "pin_turned_on":"La broche 13 n'a jamais basculé en état haut",
-        "pin_turned_off":"La broche 13 n'a jamais basculé en état bas"
+        "blink_strobe_called": "blink() ou strobe() n'a pas été appelé"
       }
     },
     "fire_alarm":{
