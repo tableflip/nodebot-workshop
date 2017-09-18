@@ -7,7 +7,7 @@ We're going to learn the basics of the `johnny-five` api, as a series of code ch
 **You _don't_ need an Arduino for this workshop.**
 
 The workshop will pose a challenge, and will test your code.
-The low level code to talk to the Ardunio is stubbed out.
+The low level code to talk to the Arduino is stubbed out.
 
 **You _will_ be writing working, executable `johnny-five` code.**
 

@@ -1,6 +1,6 @@
 {
   "title": "NodeBot Workshop",
-  "subtitle": "Make your Ardunio alive with Johnny-Five",
+  "subtitle": "Make your Arduino alive with Johnny-Five",
   "exercise": {
     "blink_blink": "Blink Blink",
     "servo_wave": "Servo Wave",
