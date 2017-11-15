@@ -6,7 +6,9 @@
   "scripts": {
     "start": "./nodebot-workshop.js",
     "test": "gulp",
-    "lint": "jshint exercises tests stubs *.js"
+    "lint": "jshint exercises tests stubs *.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "bin": {
     "nodebot-workshop": "./nodebot-workshop.js"
@@ -42,8 +44,9 @@
     "johnny-five": "^0.10.0",
     "proxyquire": "^1.0.0",
     "sinon": "^1.9",
-    "workshopper-adventure": "4.6.1",
-    "workshopper-exercise": "^2.5.3"
+    "workshopper-adventure": "6.0.0",
+    "workshopper-exercise": "^3.0.0",
+    "snyk": "^1.49.2"
   },
   "optionalDependencies": {
     "node-notifier": "^4.3.1"
@@ -59,5 +62,6 @@
   "pre-commit": [
     "lint",
     "test"
-  ]
+  ],
+  "snyk": true
 }
