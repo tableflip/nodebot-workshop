@@ -40,7 +40,7 @@ exercise.addVerifyProcessor(verifyProcessor(exercise, function (test, done) {
   test.equals(piezo.pin, pins.piezo, 'connect_speaker_to_pin', {pin: pins.piezo})
 
   var initial = {
-    tone: {callCount: piezo.tone.callCount}
+    play: {callCount: piezo.play.callCount}
   }
 
   var buffer = new Buffer('HAI!?')
@@ -50,7 +50,7 @@ exercise.addVerifyProcessor(verifyProcessor(exercise, function (test, done) {
   // Allow some time for the udp packet to reach server and sound to be played
   setTimeout(function () {
     try {
-      test.truthy(piezo.tone.callCount > initial.tone.callCount, 'speaker_played_tune_on_udp_message')
+      test.truthy(piezo.play.callCount > initial.play.callCount, 'speaker_played_tune_on_udp_message')
 
       done()
     } catch (error) {
