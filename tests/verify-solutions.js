@@ -79,7 +79,7 @@ if (process.argv.length > 2){
 
 // foo/exercises/ping_bell/solution/solution.js -> Ping Bell
 function nameFromPath(path){
-  var regex = /exercises\/(\w+)\/solution\/solution\.js/
+  var regex = /exercises(?:\/|\\)(\w+)(?:\/|\\)solution(?:\/|\\)solution\.js/
   var res = path.match(regex)
   if(!res) throw new Error('Cannot establish exercise from path: ' + path)
   return res[1]

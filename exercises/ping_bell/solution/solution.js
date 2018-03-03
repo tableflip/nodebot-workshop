@@ -7,8 +7,12 @@ board.on('ready', function () {
   var server = dgram.createSocket('udp4')
 
   server.on('message', function () {
-    piezo.tone(five.Piezo.Notes.c4, 1000)
-  })
+    piezo.play({
+      song: 'C D F D A',
+      beats: 1 / 4,
+      tempo: 100
+    });
+  });
 
   server.bind(1337)
-})
+});
