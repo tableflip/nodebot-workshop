@@ -41,7 +41,7 @@
     "dnode": "^1.2.2",
     "ioboard": "^3.0.0",
     "johnny-five": "^0.14.1",
-    "proxyquire": "^1.8.0",
+    "proxyquire": "^2.0.0",
     "sinon": "^4.4.2",
     "workshopper-adventure": "^6.0.3",
     "workshopper-exercise": "^3.0.1"
