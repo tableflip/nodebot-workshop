@@ -23,10 +23,6 @@ exercise.addProcessor(function (mode, callback) {
   }, 4000)
 })
 
-var pins = {
-  led: 13
-}
-
 // add a processor only for 'verify' calls
 exercise.addVerifyProcessor(verifyProcessor(exercise, function (test, done) {
   var io = five.stubs.firmata.singleton
@@ -36,21 +32,14 @@ exercise.addVerifyProcessor(verifyProcessor(exercise, function (test, done) {
   var led = five.Led.instances[0]
 
   test.truthy(led, 'create_led_instance')
-  test.equals(led.pin, pins.led, 'connect_led_to_pin', {pin: pins.pins})
-  test.truthy(led.strobe.called || led.blink.called, 'led_flashing')
+  test.truthy(led.pin, 'connect_led_to_pin', { pin: led.pin })
+  test.truthy(led.strobe.called || led.blink.called, 'blink_strobe_called')
 
   if (led.blink.called) {
     test.equals(led.blink.getCall(0).args[0], 1000, 'led_flashing')
   } else {
     test.equals(led.strobe.getCall(0).args[0], 1000, 'led_flashing')
   }
-
-  // should have set pin 13 into digital output mode
-  test.truthy(io.pinMode.calledWith(13, io.MODES.OUTPUT), 'pin_mode', {pin: 2, mode: 'OUTPUT'})
-
-  // should have turned pin 13 on and off
-  test.truthy(io.digitalWrite.calledWith(13, io.HIGH), 'pin_turned_on')
-  test.truthy(io.digitalWrite.calledWith(13, io.LOW), 'pin_turned_off')
 
   done()
 }))

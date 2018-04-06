@@ -61,14 +61,9 @@
     "blink_blink": {
       "pass": {
         "led_flashing": "LED is flashing once a second",
-        "pin_turned_on": "Pin 13 was turned on",
-        "pin_turned_off": "Pin 13 was turned off"
       },
       "fail": {
         "led_flashing": "LED is not flashing once a second",
-        "pin_mode": "Pin 13 was not set to OUTPUT mode",
-        "pin_turned_on": "Pin 13 was never turned on",
-        "pin_turned_off": "Pin 13 was never turned off"
       }
     },
     "fire_alarm": {
