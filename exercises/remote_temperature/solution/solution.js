@@ -14,11 +14,14 @@ board.on('ready', function () {
     temp = this.celsius
   })
 
-  var server = dnode({
-    getTemperature: function (cb) {
-      cb(temp)
-    }
-  })
+  var server = dnode(
+    {
+      getTemperature: function (cb) {
+        cb(temp)
+      }
+    },
+    { weak: false }
+  )
 
   server.listen(1337)
 })

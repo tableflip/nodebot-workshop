@@ -48,7 +48,8 @@ exercise.addVerifyProcessor(verifyProcessor(exercise, function (test, done) {
     return random(133, 163) // Between ~ 15 deg and 30 deg
   })
 
-  var d = dnode.connect(1337)
+  var d = dnode(() => {}, { weak: false })
+  d = d.connect(1337)
 
   d.on('remote', function (remote) {
     try {
