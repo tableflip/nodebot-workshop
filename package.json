@@ -37,10 +37,10 @@
     "url": "https://github.com/tableflip/nodebot-workshop/issues"
   },
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^3.1.0",
     "dnode": "^1.2.2",
     "ioboard": "^3.0.0",
-    "johnny-five": "^0.14.1",
+    "johnny-five": "^1.3.0",
     "proxyquire": "^2.0.0",
     "sinon": "^4.4.2",
     "workshopper-adventure": "^6.0.3",
@@ -50,9 +50,9 @@
     "node-notifier": "^5.2.1"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-jshint": "^2.1.0",
-    "gulp-shell": "^0.6.5",
+    "gulp-shell": "^0.7.1",
     "jshint": "^2.9.5",
     "jshint-stylish": "^2.2.1",
     "pre-commit": "^1.2.2"

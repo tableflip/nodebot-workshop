@@ -28,6 +28,4 @@ gulp.task('verify-solutions', function() {
     })
 })
 
-gulp.task('default', ['lint', 'verify-solutions'], function() {
-  // place code for your default task here
-})
+gulp.task('default', gulp.parallel('lint', 'verify-solutions'))
