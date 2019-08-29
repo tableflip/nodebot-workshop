@@ -39,13 +39,11 @@ Utilise un potentiomètre (potard) pour controller la position d'un servomoteur.
 ## Documentation
 
 - Sensor - https://github.com/rwaldron/johnny-five/wiki/Sensor
-- Fn - https://github.com/rwaldron/johnny-five/blob/master/lib/fn.js
 
 ## Conseils
 
 - Un potard est un autre cas d'utilisation de l'objet 'Sensor'...
 - Un potard a produit des valeurs dans une plage allant de 0 a 1023.
 - Un servomoteur peut généralement étre orienté dans un angle de 0 a 180°.
-- `five.Fn.map` peut étre utiliser pour normaliser les valeur du potard (0 - 1023) en angles pour le servomoteur (0 - 179).
 
 * * *

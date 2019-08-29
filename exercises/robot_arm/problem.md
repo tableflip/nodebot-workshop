@@ -40,13 +40,11 @@ GND  o---.------/\/\/------.
 ## Docs
 
 - Sensor - https://github.com/rwaldron/johnny-five/wiki/Sensor
-- Fn - https://github.com/rwaldron/johnny-five/blob/master/lib/fn.js
 
 ## Hints
 
 - A potentiometer is another use case for the Sensor object...
 - A pot produces input values between 0 and 1023.
 - A servo can typically be moved between 0 and 179 degrees.
-- `five.Fn.map` can map the pot values (0 - 1023) to servo angles (0 - 179).
 
 ---
