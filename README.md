@@ -43,8 +43,8 @@ as defined in learnyounode: https://github.com/rvagg/learnyounode/blob/master/.j
 npm scripts are present for testing and linting:
 
 ```
-$ npm run test
-$ npm run lint
+npm run test
+npm run lint
 ```
 
 A `pre-commit` hook will be installed in your repo clone to run the test/lint scripts with every commit.
