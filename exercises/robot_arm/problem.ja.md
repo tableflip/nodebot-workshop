@@ -40,13 +40,11 @@ GND  o---.------/\/\/------.
 ## ドキュメント
 
 - Sensor - https://github.com/rwaldron/johnny-five/wiki/Sensor
-- Fn - https://github.com/rwaldron/johnny-five/blob/master/lib/fn.js
 
 ## ヒント
 
 - ポテンショメータは、センサーオブジェクトの別のユースケースです。
 - 0〜1023の間の入力値を生成します。
 - サーボは通常0〜179度の角度を動くことができます。
-- `five.Fn.mapメソッド`はポテンショメータの値(0~1023)をサーボの角度(0~179)にマッピングすることができます。
 
 ---
